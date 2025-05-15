@@ -3,6 +3,8 @@ import "fmt"
 
 func main(){
 	
+	// we cant use i as var in for loop
+	// we need to use the gofer syntax
 	for i := 0; i<=10; i++ {
 		fmt.Println(i)
 	}
