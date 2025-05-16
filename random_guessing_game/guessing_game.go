@@ -16,6 +16,9 @@ func main() {
 	fmt.Println("welcome to the number guessing game!")
 	fmt.Println("now you must enter a number to see if you are correct!")
 
+	var fruits [8]int = [8]int{9,0,8,5,67,8}
+	fmt.Println(fruits)
+
 	var guess int
 
 	for {
