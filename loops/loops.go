@@ -47,4 +47,23 @@ func main(){
 		fmt.Println("")
 	}
 
+
+	var i = 1
+
+	for i<5{
+		fmt.Println(i)
+		i++
+	}
+
+	i = 8
+
+	for{
+		fmt.Println(i)
+		i++
+
+		if i == 10{
+			break
+		}
+	}
+
 }
