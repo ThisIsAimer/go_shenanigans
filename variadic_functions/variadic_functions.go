@@ -9,19 +9,20 @@ func main(){
 	//fmt.Println("sum of nums are", sum(numbers...))
 	// fmt.Println("sum of nums are", sum(numbers[:]...))
 	// fmt.Println("sum of 5,6,7 are", sum(5,6,7))
-	 fmt.Println("sum of nums are", sum(numbers))
+	s, n := sum(numbers,"raunak")
+	 fmt.Printf("sum of nums are %d, %s", s, n )
 
 }
 
 //variadic parameters must be the last parameter of a function
 // 
 
-func sum(nums [8]int) int {
+func sum(nums [8]int, name string) (int ,string) {
 	var i int = 0
 
 	for _, v := range nums {
 		i += v
 	}
 
-	return i
+	return i, name
 }
