@@ -17,6 +17,16 @@ func main(){
 //variadic parameters must be the last parameter of a function
 // 
 
+// func sum(nums ...int) (int){
+// 	var i int = 0
+//
+// 	for _, v := range nums{
+// 		i += v
+// 	}
+//
+// 	return i
+// }
+
 func sum(nums [8]int, name string) (int ,string) {
 	var i int = 0
 
