@@ -13,6 +13,8 @@ func positive_inputs(number int) {
 	defer fmt.Println("second defer")
 
 	if number < 0 {
+		fmt.Println("before panic")
+		fmt.Println("-------------------")
 		panic("negetive number")
 	}
 	defer fmt.Println("third defer")
