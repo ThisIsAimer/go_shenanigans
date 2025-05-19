@@ -7,6 +7,7 @@ func main() {
 	var copied_array  = &array
 	copied_array[1] = 10
 
+	fmt.Println(array)
 	fmt.Println(*copied_array)//as copied_array is a pointer array we need to dereference it
 
 }
