@@ -7,11 +7,11 @@ func main(){
 	var ptr *int = &a
 
 	fmt.Println("value of a", *ptr)
-	ptr_incriment(ptr)
+	ptrIncriment(ptr)
 	fmt.Println("value of a", a)
 
 }
 
-func ptr_incriment(ptr *int) {
+func ptrIncriment(ptr *int) {
 	*ptr++
 }
