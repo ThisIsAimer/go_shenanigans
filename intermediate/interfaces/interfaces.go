@@ -55,6 +55,7 @@ func main(){
 
 	myPrinter("hello",10,20.5,false)
 	evaluate(true)
+	evaluate("")
 }
 
 
