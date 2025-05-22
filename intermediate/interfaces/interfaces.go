@@ -53,4 +53,29 @@ func main(){
 	measure(rectangle)
 	measure(circle)
 
+	myPrinter("hello",10,20.5,false)
+	evaluate(true)
+}
+
+
+//interface type takes any value
+func myPrinter ( a ...interface{}){
+	for _,v := range a{
+		fmt.Println(v)
+	}
+}
+//or
+// func myPrinter ( a ...any){
+// 	for _,v := range a{
+// 		fmt.Println(v)
+// 	}
+// }
+
+func evaluate(a any) {
+	switch a.(type) {
+		case int: fmt.Println("its int")
+		case string: fmt.Println("its string")
+
+		default: fmt.Println("its not defined")
+	}
 }
