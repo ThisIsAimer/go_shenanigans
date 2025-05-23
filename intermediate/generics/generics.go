@@ -23,6 +23,16 @@ func (s *stack[T]) pop() (T, bool){
 func (s stack[T]) isEmpty() bool {
 	return len(s.elements) == 0
 }
+func(s stack[T]) printElements() {
+	if len(s.elements) == 0{
+		fmt.Println("the stack is empty")
+	}else{
+		for _, element := range s.elements{
+			fmt.Print(element , " ")
+		}
+		println()
+	}
+}
 
 
 func main(){
@@ -31,7 +41,9 @@ func main(){
 	stack.push(50)
 	stack.push(100)
 
+	stack.printElements()
 	fmt.Println(stack.pop())
 	fmt.Println(stack.isEmpty())
+	fmt.Println(stack)
 
 }
