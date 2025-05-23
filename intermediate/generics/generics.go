@@ -5,7 +5,7 @@ type stack[T any] struct{
 	elements []T
 }
 
-func (s *stack[t]) push(element t) {
+func (s *stack[T]) push(element T) {
 	s.elements = append(s.elements, element)
 }
 
@@ -36,14 +36,21 @@ func(s stack[T]) printElements() {
 
 
 func main(){
-	var stack = stack[int]{}
-	stack.push(20)
-	stack.push(50)
-	stack.push(100)
 
-	stack.printElements()
-	fmt.Println(stack.pop())
-	fmt.Println(stack.isEmpty())
-	fmt.Println(stack)
+	//shouldnt name struct's instance name same as struct's name
+	var intStack = stack[int]{}
+	intStack.push(20)
+	intStack.push(50)
+	intStack.push(100)
+
+	intStack.printElements()
+	fmt.Println(intStack.pop())
+	fmt.Println(intStack.isEmpty())
+	fmt.Println(intStack)
+
+	var sStack = stack[string]{}
+	sStack.push("hey")
+	sStack.push("hello")
+	sStack.push("how are you")
 
 }
