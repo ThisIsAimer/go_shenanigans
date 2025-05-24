@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"reflect"
+	"regexp"
 	"strconv"
 	"strings"
 )
@@ -14,9 +15,9 @@ func main() {
 
 	fmt.Println(str1 +" "+ str2)
 	fmt.Println(str1[1])//ascii
-	result := str1+" "+ str2
+	result1 := str1+" "+ str2
 
-	fmt.Println(result[1:7])
+	fmt.Println(result1[1:7])
 	//-----------------------------------------------------------------------
 	num := 77
 	var numToString = strconv.Itoa(num)
@@ -31,7 +32,7 @@ func main() {
 	fmt.Println(myCounties)
 	fmt.Println(strings.Contains(myCounties, "India"))
 
-	greetings := strings.Replace(result,"world","India",1)
+	greetings := strings.Replace(result1,"world","India",1)
 	println(greetings)
 
 	// it trims "   Hello world!  "
@@ -45,4 +46,34 @@ func main() {
 	fmt.Println(strings.Count(greetings,"India"))
 	fmt.Println(strings.HasPrefix(greetings,"he"))
 
+	string1 := "hello 123 go! 12.12 32 54"
+	regular := regexp.MustCompile(`\d+`) //finds ints in the para
+	matches := regular.FindAllString(string1,-1)// -1 finds all
+	fmt.Println(matches)
+
+	//------------------------------------------------------------------
+	// STRING BUILDER is used to build strings in a memory efficient way
+	var builder strings.Builder
+
+	// Write some strings
+	builder.WriteString("Hello")
+	builder.WriteString(", ")
+	builder.WriteString("world!")
+
+	// Convert builder to a string
+	result := builder.String()
+	fmt.Println(result)
+
+	// Using Writerune to add a character
+	builder.WriteRune(' ')
+	builder.WriteString("How are you")
+
+	result = builder.String()
+	fmt.Println(result)
+
+	// Reset the builder
+	builder.Reset()
+	builder.WriteString("Starting fresh!")
+	result = builder.String()
+	fmt.Println(result)
 }
