@@ -42,4 +42,14 @@ func main() {
 	fmt.Println("quary url1:",quaryUrl1)
 	fmt.Println("name:", quaryUrl1.Get("name"))
 	fmt.Println("age:", quaryUrl1.Get("age"))
+
+
+
+	customUrl := *&url.URL{Scheme: "https",Host: "myWife.com",Path: "/path"}
+	customQuary := customUrl.Query()
+	customQuary.Add("name","Akriti")
+	customQuary.Add("age","21")
+	customUrl.RawQuery = customQuary.Encode()
+
+	fmt.Println("custom Url:", customUrl.String())
 }
