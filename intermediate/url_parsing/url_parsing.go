@@ -52,4 +52,19 @@ func main() {
 	customUrl.RawQuery = customQuary.Encode()
 
 	fmt.Println("custom Url:", customUrl.String())
+
+	//customed quary with just values
+	values := url.Values{}
+	values.Add("bro","code")
+	values.Add("language","go")
+
+	var encodedQuary = values.Encode()
+
+	var customUrl1 = "https://broCode.com/path"
+
+	cusQuary := customUrl1 + "?" + encodedQuary
+
+	fmt.Println("custom quary1:",cusQuary)
+
+
 }
