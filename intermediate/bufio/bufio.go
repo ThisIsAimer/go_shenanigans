@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"os"
 	"strings"
 )
 
@@ -36,5 +37,43 @@ func main(){
 	//reader give out the remaining string that was left after transfering
 	//string into data.
 	println("string read is:", line)
+
+	fmt.Println("-------------------------------------------------------")
+
+	var write = bufio.NewWriter(os.Stdout)
+
+	wData := []byte("hello how are you doing!")
+	aData := []byte("\nI love golang")
+
+	//written in an internal buffer
+	n, err = write.Write(wData)
+	if err != nil {
+		fmt.Println("error is:",err)
+		return
+	}
+	n, err = write.Write(aData)
+	if err != nil {
+		fmt.Println("error is:",err)
+		return
+	}
+	
+	var myString = "\nhey whats up"
+
+	n, err = write.WriteString(myString)
+	if err != nil {
+		fmt.Println("error is:",err)
+		return
+	}
+
+	fmt.Println("bytes written:", n)
+
+	fmt.Println("\nwritten string is:-")
+	fmt.Println("-------------------------------------------------------")
+	err = write.Flush()
+	if err != nil {
+		fmt.Println("error is:",err)
+		return
+	}
+	
 
 }
