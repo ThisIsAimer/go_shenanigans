@@ -16,7 +16,7 @@ func main() {
 
 	// in go we use encoding/base64 package
 
-	var data = []byte("hey i love golang!")
+	var data = []byte("hey i love golang~!")
 
 	var encoded = base64.StdEncoding.EncodeToString(data)
 
@@ -34,5 +34,23 @@ func main() {
 	//bytes can be directly converted to strings
 	fmt.Println("text form:", string(decoded))
 	//fmt.Printf("Text format: %s\n",decoded)
+
+
+	//url safe encoding
+	// we try to avoid '/' and '+'
+
+	fmt.Println("------------------------------------------------------")
+	fmt.Println("------------------------------------------------------")
+	var urlSafe = base64.URLEncoding.EncodeToString(data)
+	println("url safe encode:", urlSafe)
+
+	fmt.Println("------------------------------------------------------")
+	urlDecoding, err := base64.URLEncoding.DecodeString(urlSafe)
+	if err != nil {
+		fmt.Println("error is:",err)
+		return
+	}
+	fmt.Println("url encoding decoded:", urlDecoding)
+	fmt.Println("url encoding decoded str:",string(urlDecoding))
 
 }
