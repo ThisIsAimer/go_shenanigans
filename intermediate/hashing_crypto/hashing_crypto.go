@@ -23,7 +23,7 @@ func main() {
 	fmt.Println("hashed value is:", hashed)
 
 	//must be printed with %x
-	fmt.Printf("hashed value is: %x\n", string(hashed[:]))
-	fmt.Printf("hashed value is: %x\n", string(hashed1[:]))
+	fmt.Printf("hashed sha-256 value is: %x\n", string(hashed[:]))
+	fmt.Printf("hashed sha-512 value is: %x\n", string(hashed1[:]))
 
 }
