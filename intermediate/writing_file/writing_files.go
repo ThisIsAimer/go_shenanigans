@@ -6,11 +6,17 @@ import (
 )
 
 func main(){
-	newFile, err := os.Create("output.txt")
+	//it doesnt create directory
+	newFile, err := os.Create("basics/intermediate/writing_file/output.txt")
 	if err != nil {
 		fmt.Println("error is:",err)
 		return
 	}
+
+	// we use
+	//err = os.MkdirAll("intermediate/writing_file", os.ModePerm)
+	// we can use 0755 instead of os.ModePerm
+	// to make directory
 
 	fmt.Println("hello world")
 	defer newFile.Close()
@@ -26,7 +32,7 @@ func main(){
 	}
 	println("bytes written:", num)
 
-	strFile, err := os.Create("strOutput.txt")
+	strFile, err := os.Create("basics/intermediate/writing_file/strOutput.txt")
 	if err != nil {
 		fmt.Println("error is:",err)
 		return
