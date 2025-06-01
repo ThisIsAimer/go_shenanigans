@@ -6,7 +6,7 @@ import (
 )
 
 func main(){
-	newFile, err := os.Create("Output.txt")
+	newFile, err := os.Create("output.txt")
 	if err != nil {
 		fmt.Println("error is:",err)
 		return
@@ -25,5 +25,18 @@ func main(){
 		return
 	}
 	println("bytes written:", num)
+
+	strFile, err := os.Create("strOutput.txt")
+	if err != nil {
+		fmt.Println("error is:",err)
+		return
+	}
+	defer strFile.Close()
+
+	var strData = "One piece is real!!!!!!\nA proud member of the strawhat crew.\n"
+
+	num, err = strFile.WriteString(strData)
+
+	println("strings written:", num)
 
 }
