@@ -7,7 +7,7 @@ import (
 
 func main(){
 	//it doesnt create directory
-	newFile, err := os.Create("basics/intermediate/writing_file/output.txt")
+	newFile, err := os.Create("intermediate/writing_file/output.txt")
 	if err != nil {
 		fmt.Println("error is:",err)
 		return
@@ -32,7 +32,7 @@ func main(){
 	}
 	println("bytes written:", num)
 
-	strFile, err := os.Create("basics/intermediate/writing_file/strOutput.txt")
+	strFile, err := os.Create("intermediate/writing_file/strOutput.txt")
 	if err != nil {
 		fmt.Println("error is:",err)
 		return
