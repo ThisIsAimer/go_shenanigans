@@ -1,0 +1,5 @@
+Cloud computing is the delivery of computing services over the internet.
+It provides on-demand access to resources like storage, servers, databases, and software.
+With cloud computing, users can scale their infrastructure easily,pay only for what they use,and access their data from anywhere in the world.
+It enhances collaboration, supports remote work, and reduces the need for costly physical hardware.
+Cloud computing is the backbone of modern digital transformation, enabling innovation at unprecedented speed and scale.
