@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	var file, err = os.Open("intermediate/line_filter/cloud.txt")
+	var file, err = os.Open("./intermediate/line_filter/cloud.txt")
 	if err != nil {
 		fmt.Println("error is:", err)
 		return
