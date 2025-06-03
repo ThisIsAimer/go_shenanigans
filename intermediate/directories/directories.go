@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"path/filepath"
 )
 
 func main(){
@@ -29,7 +30,17 @@ func main(){
 	fmt.Println("----------------------------------------------------------")
 
 	//creates directory the base
-	checkError(os.Chdir("intermediate/directories"))
+	checkError(os.Chdir("./intermediate/directories"))
+	//checkError(os.Chdir("intermediate/directories"))
+	curDir, err := os.Getwd()
+	if err != nil {
+		fmt.Println("error is:",err)
+		return
+	}
+
+	
+	fmt.Println("current directory:",curDir)
+
 	dir, err = os.ReadDir(".")
 	if err != nil {
 		fmt.Println("error is:",err)
@@ -38,7 +49,66 @@ func main(){
 
 	fmt.Println("reading intermediate/directories: ")
 
-	fmt.Println(dir)
+	fmt.Println("read directory: ",dir)
+
+	checkError(os.Chdir("./../.."))
+	curDir, err = os.Getwd()
+	if err != nil {
+		fmt.Println("error is:",err)
+		return
+	}
+
+	
+	fmt.Println("current directory:",curDir)
+
+	fmt.Println("----------------------------------------------------------")
+
+	//filepath.Walk and filepath.Walkdir 
+	//walkdir is better
+
+	fmt.Println("walking directory: ")
+	var pathFile = "./intermediate/directories"
+	err = filepath.WalkDir(pathFile,func(path string, d os.DirEntry, err error) error{
+		if err != nil {
+			fmt.Println("error is:",err)
+			return err
+		}
+		fmt.Println("current path is: ",path)
+		return nil
+	})
+
+	if err != nil {
+		fmt.Println("error is:",err)
+		return
+	}
+	/*
+	func myWalker(path string, d os.DirEntry, err error) error {
+    if err != nil {
+        fmt.Println("error is:", err)
+        return err
+    }
+    fmt.Println(path)
+    return nil
+	}
+
+	filepath.WalkDir(pathFile, myWalker)
+	*/
+
+	defer func(){
+		err = os.RemoveAll("./intermediate/directories/subdir")
+		if err != nil {
+			fmt.Println("error is:",err)
+			return
+		}
+
+		err = os.RemoveAll("./intermediate/directories/c")
+		if err != nil {
+			fmt.Println("error is:",err)
+			return
+		}
+	}()
+
+	// os.Remove to remove just one entity
 
 }
 
