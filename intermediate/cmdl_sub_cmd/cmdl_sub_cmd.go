@@ -7,6 +7,11 @@ import (
 )
 
 func main(){
+
+	defaultFlag := flag.String("help","hey","smth")
+	flag.Parse()
+	println("base flag is:", *defaultFlag)
+
 	//"e:\coding\golang\basics\intermediate\cmdl_sub_cmd\cmdl_sub_cmd.go" golang -name andro -exp 10
 	golang := flag.NewFlagSet("golang",flag.ExitOnError)
 	love := flag.NewFlagSet("love",flag.ExitOnError)
