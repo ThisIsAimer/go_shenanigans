@@ -7,6 +7,7 @@ import (
 )
 
 func main(){
+	//"e:\coding\golang\basics\intermediate\cmdl_sub_cmd\cmdl_sub_cmd.go" golang -name andro -exp 10
 	golang := flag.NewFlagSet("golang",flag.ExitOnError)
 	love := flag.NewFlagSet("love",flag.ExitOnError)
 
@@ -23,11 +24,14 @@ func main(){
 	switch os.Args[1]{
 		case "golang":
 			golang.Parse(os.Args[2:])
-			fmt.Println("username:", userName)
-			fmt.Println("experience:", experience)
+			fmt.Println("username:", *userName)
+			fmt.Println("experience:", *experience)
 		case "love":
 			love.Parse(os.Args[2:])
-			fmt.Println("love:", loveTrue)
+			fmt.Println("love:", *loveTrue)
+
+		default:
+			fmt.Println("invalid sub cmd entered")
 	}
 
 }

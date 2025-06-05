@@ -24,7 +24,7 @@ func main() {
 	var male bool
 
 	flag.StringVar(&name, "name", "bro", "your name")
-	flag.IntVar(&age, "age", 18, "your age")
+	flag.IntVar(&age, "age", -1, "your age")
 	flag.BoolVar(&male, "male", false, "are you male?")
 
 	flag.Parse()
