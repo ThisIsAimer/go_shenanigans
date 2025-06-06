@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
+	"os"
 )
 
 func main(){
@@ -22,7 +23,18 @@ func main(){
 	log.Println("this is a log message with just time")
 
 	log.SetFlags(log.LstdFlags)
-	log.Println("this is a log message with just normal date and time")
+	log.Println("this is a log message with just stdFlags")
+
+	log.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
+	log.Println("this is a log message with just normal date and time with file details")
+
+	newLogger1 := log.New(os.Stdout,"Log: ", log.Ldate | log.Ltime)
+	newLogger.Println("my custom log")
+	newLogger1.Println("my custom log 2")
 
 
 }
+
+var(
+	newLogger = log.New(os.Stdout,"Log: ", log.Ldate | log.Ltime | log.Lmicroseconds )
+)
