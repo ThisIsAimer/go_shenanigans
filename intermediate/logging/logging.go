@@ -28,13 +28,14 @@ func main(){
 	log.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
 	log.Println("this is a log message with just normal date and time with file details")
 
-	newLogger1 := log.New(os.Stdout,"Log: ", log.Ldate | log.Ltime)
+	warnLogger := log.New(os.Stdout,"Waring: ", log.Ldate | log.Ltime)
 	newLogger.Println("my custom log")
-	newLogger1.Println("my custom log 2")
+	warnLogger.Println("my custom log 2")
 
 
 }
 
+//available for all functions
 var(
 	newLogger = log.New(os.Stdout,"Log: ", log.Ldate | log.Ltime | log.Lmicroseconds )
 )
