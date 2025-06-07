@@ -12,11 +12,13 @@ type Person struct {
 
 	//json package will look for the json tag
 	Name string `json:"name"`
-	Age  int    `json:"age"`
+	Age  int    `json:"age,omitempty"`//will omit if not provided
+	Email string `json:"email"`
 }
 
 func main() {
-	friend := Person{Name: "Friend", Age: 34}
+	friend := Person{Age: 34, Email: "friend@gmail.com"}
+	rudra := Person{Name: "Rudra", Email: "rudra@gmail.com"}
 
 	//marshaling
 	//In Go, "marshal" means to convert data (like a struct or map) into a specific format
@@ -26,4 +28,12 @@ func main() {
 		return
 	}
 	fmt.Println("json data:", string(jsonData))
+
+	jsonData1, err := json.Marshal(rudra)
+
+	if err != nil {
+		fmt.Println("error is:", err)
+		return
+	}
+	fmt.Println("json data:", string(jsonData1))
 }
