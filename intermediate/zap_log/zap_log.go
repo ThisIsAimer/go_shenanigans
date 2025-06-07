@@ -8,7 +8,7 @@ import (
 
 func main(){
 	fmt.Println("zap logger!")
-	
+
 	logger, err := zap.NewProduction()
 	if err != nil {
 		fmt.Println("error is:", err)
@@ -20,5 +20,7 @@ func main(){
 	defer logger.Sync()
 
 	logger.Info("this is a zap log message")
+
+	logger.Info("custom info",zap.String("Username", "my bro"),zap.String("method", "get"))
 
 }
