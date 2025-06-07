@@ -13,8 +13,20 @@ func main(){
 	//go.mod must be in the root directory "cd intermediate/logrus_logging"
 	fmt.Println("hello world")
 
-	
+
 	log := logrus.New()
+	log.SetLevel(logrus.InfoLevel)
+
+	log.SetFormatter(&logrus.JSONFormatter{})
+
+	log.Info("this is an info message")
+	log.Warn("this is a warning message")
+	log.Error("this is an error message")
 	log.Println("this is a log")
+
+	log.WithFields(logrus.Fields{
+		"username": "bro",
+		"method":"get",
+	}).Info("log with fields!")
 
 }
