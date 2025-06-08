@@ -19,8 +19,7 @@ type Person struct {
 
 type Address struct {
 	City  string `json:"city"`
-	State   string `json:"state"`
-	
+	State string `json:"state"`
 }
 
 func main() {
@@ -54,16 +53,51 @@ func main() {
 		return
 	}
 
-
-	fmt.Println("employee is:",myEmployee)
+	fmt.Println("employee is:", myEmployee)
 	fmt.Println("age by 2032:", myEmployee.Age+(2032-2025))
 
+	addresses := []Address{
+		{City: "Mumbai", State: "Maharashtra"},
+		{City: "Bengaluru", State: "Karnataka"},
+		{City: "Chennai", State: "Tamil Nadu"},
+		{City: "Kolkata", State: "West Bengal"},
+		{City: "Hyderabad", State: "Telangana"},
+	}
+
+	addressList, err := json.Marshal(addresses)
+	if err != nil {
+		fmt.Println("error is:", err)
+		return
+	}
+
+	fmt.Println("addresses are", string(addressList))
+
+	// handling unknown json structures
+
+	jsonPerson := `{ "name": "Priya Singh","age": 25,"email": "priya.singh@example.com","address": {"city": "Lucknow","state": "Uttar Pradesh" }}`
+
+	var data map[string]any
+
+	err = json.Unmarshal([]byte(jsonPerson), &data)
+	if err != nil {
+		fmt.Println("mapping error is:", err)
+		return
+	}
+
+	fmt.Println("------------------------------------------------------------------------")
+
+
+	fmt.Println("mapped data:", data)
+	fmt.Println("mapped data:", data["address"])
+	fmt.Println("mapped data:", data["name"])
+	fmt.Println("mapped data:", data["age"])
+	
 
 }
 
-type Employee struct{
-	FullName string `json:"full_name"`
-	EmployeeID string `json:"employee_id"`
-	Age int `json:"age"`
-	Address Address `json:"address"`
+type Employee struct {
+	FullName   string  `json:"full_name"`
+	EmployeeID string  `json:"employee_id"`
+	Age        int     `json:"age"`
+	Address    Address `json:"address"`
 }
