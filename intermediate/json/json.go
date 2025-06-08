@@ -11,13 +11,20 @@ type Person struct {
 	//we use the json tag for the json package
 
 	//json package will look for the json tag
-	Name string `json:"name"`
-	Age  int    `json:"age,omitempty"`//will omit if not provided
-	Email string `json:"email"`
+	Name    string  `json:"name"`
+	Age     int     `json:"age,omitempty"` //will omit if not provided
+	Email   string  `json:"email"`
+	Address Address `json:"address"`
+}
+
+type Address struct {
+	City  string `json:"city"`
+	State   string `json:"state"`
+	
 }
 
 func main() {
-	friend := Person{Age: 34, Email: "friend@gmail.com"}
+	friend := Person{Age: 34, Email: "friend@gmail.com", Address: Address{City: "Patna", State: "Bihar"}}
 	rudra := Person{Name: "Rudra", Email: "rudra@gmail.com"}
 
 	//marshaling
@@ -36,4 +43,27 @@ func main() {
 		return
 	}
 	fmt.Println("json data:", string(jsonData1))
+
+	var myEmployee Employee
+
+	myData := `{"full_name":"Akrit", "employee_id":"060204","age": 21,"address":{"city":"Rishikesh","state":"Uttarakhand"}}`
+
+	err = json.Unmarshal([]byte(myData), &myEmployee)
+	if err != nil {
+		fmt.Println("error is:", err)
+		return
+	}
+
+
+	fmt.Println("employee is:",myEmployee)
+	fmt.Println("age by 2032:", myEmployee.Age+(2032-2025))
+
+
+}
+
+type Employee struct{
+	FullName string `json:"full_name"`
+	EmployeeID string `json:"employee_id"`
+	Age int `json:"age"`
+	Address Address `json:"address"`
 }
