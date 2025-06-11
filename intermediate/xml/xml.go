@@ -10,7 +10,7 @@ type Person struct {
 	XMLName xml.Name `xml:"person"` //root email
 	Name    string   `xml:"name"`
 	Age     int      `xml:"age"`
-	City    string   `xml:"city"`
+	City    string   `xml:"city,omitempty"`
 	Email   string   `xml:"email"`
 }
 
@@ -20,7 +20,8 @@ func main() {
 
 	fmt.Println("hello world")
 
-	myFriend := Person{Name: "Sunpreet Singh", Age: 30, City: "random", Email: "email@example.com"}
+	myFriend := Person{Name: "Sunpreet Singh", Age: 30,  Email: "email@example.com"}
+	myFriend1 := Person{Name: "Vikas", Age: 30,City: "Delhi",  Email: "email@example.com"}
 
 	xmlData, err := xml.Marshal(myFriend)
 
@@ -29,7 +30,16 @@ func main() {
 		return
 	}
 
-	fmt.Println("xml data is:", string(xmlData))
+	fmt.Println("sunpreet xml data is:", string(xmlData))
+
+	xmlData, err = xml.MarshalIndent(myFriend1,""," ")
+
+	if err != nil {
+		fmt.Println("error is:", err)
+		return
+	}
+
+	fmt.Println("vikas indented xml data is:", string(xmlData))
 
 	xmlData, err = xml.MarshalIndent(myFriend, "", " ")
 
@@ -38,7 +48,7 @@ func main() {
 		return
 	}
 
-	fmt.Println("indented xml data is:", string(xmlData))
+	fmt.Println("sunpreet indented xml data is:", string(xmlData))
 
 	fmt.Println("----------------------------------------------------")
 
