@@ -10,8 +10,13 @@ type Person struct {
 	XMLName xml.Name `xml:"person"` //root email
 	Name    string   `xml:"name"`
 	Age     int      `xml:"age"`
-	City    string   `xml:"city,omitempty"`
+	Address Address `xml:"address,omitempty"`//structs cant be omitemptied
 	Email   string   `xml:"email"`
+}
+
+type Address struct {
+	City  string `xml:"city,omitempty"`
+	State string `xml:"state,omitempty"`
 }
 
 func main() {
@@ -20,8 +25,8 @@ func main() {
 
 	fmt.Println("hello world")
 
-	myFriend := Person{Name: "Sunpreet Singh", Age: 30,  Email: "email@example.com"}
-	myFriend1 := Person{Name: "Vikas", Age: 30,City: "Delhi",  Email: "email@example.com"}
+	myFriend := Person{Name: "Sunpreet Singh", Age: 30, Email: "email@example.com"}
+	myFriend1 := Person{Name: "Vikas", Age: 30, Email: "email@example.com", Address: Address{City: "New Delhi", State: "Union Terratory"}}
 
 	xmlData, err := xml.Marshal(myFriend)
 
@@ -32,7 +37,7 @@ func main() {
 
 	fmt.Println("sunpreet xml data is:", string(xmlData))
 
-	xmlData, err = xml.MarshalIndent(myFriend1,""," ")
+	xmlData, err = xml.MarshalIndent(myFriend1, "", " ")
 
 	if err != nil {
 		fmt.Println("error is:", err)
@@ -62,4 +67,19 @@ func main() {
 	}
 
 	fmt.Println("unmarshaled datais:", AkData)
+
+
+	updateXml := `<person><name>Srekanth</name><age>21</age><email>srekanth@example.com</email><address><city>Raipur</city><state>chattisgarh</state></address></person>`
+
+	var randomPerson Person
+
+	err = xml.Unmarshal([]byte(updateXml),&randomPerson)
+
+	if err != nil {
+		fmt.Println("error is:", err)
+		return
+	}
+
+	fmt.Println("Srekanth's xml is:", randomPerson)
+
 }
