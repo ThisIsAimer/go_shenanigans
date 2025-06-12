@@ -86,7 +86,7 @@ func main() {
 	fmt.Println("Space:", randomPerson.XMLName.Space)
 	//attributes
 
-	book := Book{ISBN: "545-68574-4575457",Title: "Love", Auther: "Me"}
+	book := Book{ISBN: "545-68574-4575457",Title: "Love", Auther: "Me", Psudo: "psudo", PsudoAttr:"attr" }
 
 	xmlBook, err:= xml.MarshalIndent(book,""," ")
 	if err != nil {
@@ -104,4 +104,6 @@ type Book struct {
 	ISBN    string   `xml:"isbn,attr,omitempty"`
 	Title   string   `xml:"title,attr"`
 	Auther  string   `xml:"auther,attr"`
+	Psudo string  `xml:"psudo"`
+	PsudoAttr string  `xml:"psudo,attr"`
 }
