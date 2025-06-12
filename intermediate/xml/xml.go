@@ -10,7 +10,7 @@ type Person struct {
 	XMLName xml.Name `xml:"person"` //root email
 	Name    string   `xml:"name"`
 	Age     int      `xml:"age"`
-	Address Address `xml:"address,omitempty"`//structs cant be omitemptied
+	Address Address  `xml:"address,omitempty"` //structs cant be omitemptied
 	Email   string   `xml:"email"`
 }
 
@@ -68,12 +68,11 @@ func main() {
 
 	fmt.Println("unmarshaled datais:", AkData)
 
-
 	updateXml := `<person><name>Srekanth</name><age>21</age><email>srekanth@example.com</email><address><city>Raipur</city><state>chattisgarh</state></address></person>`
 
 	var randomPerson Person
 
-	err = xml.Unmarshal([]byte(updateXml),&randomPerson)
+	err = xml.Unmarshal([]byte(updateXml), &randomPerson)
 
 	if err != nil {
 		fmt.Println("error is:", err)
@@ -82,4 +81,27 @@ func main() {
 
 	fmt.Println("Srekanth's xml is:", randomPerson)
 
+	//----------------------------------------
+	fmt.Println("Local:", randomPerson.XMLName.Local)
+	fmt.Println("Space:", randomPerson.XMLName.Space)
+	//attributes
+
+	book := Book{ISBN: "545-68574-4575457",Title: "Love", Auther: "Me"}
+
+	xmlBook, err:= xml.MarshalIndent(book,""," ")
+	if err != nil {
+		fmt.Println("error is:", err)
+		return
+	}
+
+	fmt.Println("attributes of book:", string(xmlBook))
+
+}
+
+type Book struct {
+	XMLName xml.Name `xml:"book"`
+	//attr means attribute
+	ISBN    string   `xml:"isbn,attr,omitempty"`
+	Title   string   `xml:"title,attr"`
+	Auther  string   `xml:"auther,attr"`
 }
