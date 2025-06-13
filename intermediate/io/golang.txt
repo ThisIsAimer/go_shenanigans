@@ -1,1 +1,4 @@
 I love golang
+writing to writer
+writing to writer
+writing to writer

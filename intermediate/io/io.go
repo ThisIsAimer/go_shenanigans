@@ -77,6 +77,8 @@ func main(){
 	fmt.Println("Reading from reader!")
 	//reading from reader
 	readFromReader(strings.NewReader("this is reading the string"))
+	//---------------------------------------------------------
+
 	file, err := os.ReadFile(`intermediate/io/golang.txt`)
 	if err != nil {
 		fmt.Println("error is:", err)
@@ -86,13 +88,21 @@ func main(){
 
 	//or
 
-	myfile, err := os.Open(`intermediate/io/golang.txt`)
+	myfile, err := os.OpenFile(`intermediate/io/golang.txt`, os.O_APPEND, 0755) //with flags
 	//myfile statisfies the io.reader interface wth its read function
 	
 	if err != nil {
 		fmt.Println("error is:", err)
 		return
 	}
+	defer closeResource(myfile)
 	readFromReader(myfile)
+
+	var writer bytes.Buffer
+	writeToWriter(myfile,"writing to writer\n")
+
+	writeToWriter(&writer,string(file))
+
+	fmt.Println("writer contains:",writer.String())
 
 }
