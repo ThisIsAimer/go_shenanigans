@@ -69,6 +69,22 @@ func multibufferExample (c ...string){
 	
 }
 
+func pipeExample(word string){
+	reader, writer := io.Pipe()
+
+	go func ()  {
+		writer.Write([]byte(word))
+		writer.Close()
+	}()// goroutine will be transferred to the next thread and following lines of code
+		// will be executed normally
+
+	buffer := new(bytes.Buffer)
+
+	buffer.ReadFrom(reader)
+
+	fmt.Println(buffer.String())
+}
+
 func main(){
 	bufferExample("Hey friends!")
 	multibufferExample("I am Great!\n","how are you?\n","I love golang\n")
@@ -104,5 +120,9 @@ func main(){
 	writeToWriter(&writer,string(file))
 
 	fmt.Println("writer contains:",writer.String())
+
+	// piping------------------------------------------
+
+	pipeExample("this is the pute thing")
 
 }
