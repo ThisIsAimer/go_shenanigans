@@ -47,7 +47,6 @@ func bufferExample(c string){
 	}
 }
 
-
 func multibufferExample (c ...string){
 	var readers []io.Reader
 	for _,element := range c{
@@ -84,6 +83,28 @@ func pipeExample(word string){
 
 	fmt.Println(buffer.String())
 }
+
+
+func writeToFile(filepath string, data string){
+
+	file, err := os.OpenFile(filepath,os.O_CREATE|os.O_APPEND|os.O_WRONLY,0755)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	defer file.Close()
+
+	writer := io.Writer(file)
+
+	// this just calls file.write as it is converted from file
+	_, err = writer.Write([]byte(data))
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+}
+
 
 func main(){
 	bufferExample("Hey friends!")
@@ -135,5 +156,16 @@ func main(){
 	// piping------------------------------------------
 
 	pipeExample("this is the pute thing")
+
+	fmt.Println("------------------------------------------------------------------")
+	writeToFile(`intermediate\io\love.txt`,"\nwe created a new file\n i love go!")
+
+	file,err = os.ReadFile(`intermediate\io\love.txt`)
+	if err != nil {
+		fmt.Println("error is:", err)
+		return
+	}
+
+	fmt.Println("love.txt contains:\n", string(file))
 
 }
