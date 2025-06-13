@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"log"
+	"os"
 	"strings"
 )
 
@@ -71,5 +72,27 @@ func multibufferExample (c ...string){
 func main(){
 	bufferExample("Hey friends!")
 	multibufferExample("I am Great!\n","how are you?\n","I love golang\n")
+
+
+	fmt.Println("Reading from reader!")
+	//reading from reader
+	readFromReader(strings.NewReader("this is reading the string"))
+	file, err := os.ReadFile(`intermediate/io/golang.txt`)
+	if err != nil {
+		fmt.Println("error is:", err)
+		return
+	}
+	readFromReader(strings.NewReader(string(file)))
+
+	//or
+
+	myfile, err := os.Open(`intermediate/io/golang.txt`)
+	//myfile statisfies the io.reader interface wth its read function
+	
+	if err != nil {
+		fmt.Println("error is:", err)
+		return
+	}
+	readFromReader(myfile)
 
 }
