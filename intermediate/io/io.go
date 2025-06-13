@@ -112,12 +112,23 @@ func main(){
 		return
 	}
 	defer closeResource(myfile)
+	fmt.Println("------------------------------------------------------------------")
 	readFromReader(myfile)
 
 	var writer bytes.Buffer
 	writeToWriter(myfile,"writing to writer\n")
 
-	writeToWriter(&writer,string(file))
+	myfile, err = os.OpenFile(`intermediate/io/golang.txt`, os.O_APPEND, 0755)
+
+	if err != nil {
+		fmt.Println("error is:", err)
+		return
+	}
+
+	byteSL := make([]byte,1204)
+	n, err := myfile.Read(byteSL)
+
+	writeToWriter(&writer, string(byteSL[:n]))
 
 	fmt.Println("writer contains:",writer.String())
 
