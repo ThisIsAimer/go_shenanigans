@@ -8,10 +8,12 @@ func main(){
 
 	myString := "I love golang"
 
-	channel <- myString // deadlick as channel is continiously trying to recieve data
-						// it stops programme flow
 
-	reciever := <- channel
+	go func(){
+		channel <- myString 
+	}()
+
+	reciever := <- channel //reciever is in the main go routine
 
 	fmt.Println(reciever)
 
