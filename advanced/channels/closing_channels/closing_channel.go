@@ -1,6 +1,8 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func main() {
 	//closing channels anly ends sending values to channel
@@ -34,4 +36,47 @@ func main() {
 		fmt.Println(value)
 	}
 
+	fmt.Println("------------------------------------------------------")
+
+	//closing already close channel will cause error
+
+	// ch := make(chan int)
+
+	// go func() {
+	// 	close(ch)
+	// 	close(ch)
+	// }()
+
+	//we should never close channels in 2 different goroutines
+
+	fmt.Println("------------------------------------------------------")
+
+	in := make(chan int)
+	out := make(chan int)
+
+	go producer(in)
+	go filter(in, out)
+
+	for value := range out{
+		fmt.Println("we got value from filter:", value)
+	}
+
+}
+
+
+func producer(channel chan<- int){
+	for i := range 5{
+		channel <- i*i
+	}
+	close(channel)
+}
+
+
+func filter(in <-chan int, out chan <-int){
+	for value := range in{
+		if value % 2 == 0{
+			out <- value
+		}
+	}
+	close(out)
 }
