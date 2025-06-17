@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"log"
 	"time"
 )
 
@@ -70,18 +71,29 @@ func main() {
 		fmt.Println("result not found")
 	}
 
-	go doWord(id)
-
 	id = context.WithValue(worker,"doing","Love")
 
-	myResult = id.Value("doing")
-	if myResult != nil{
-		fmt.Println("result is:", myResult)
-	} else{
-		fmt.Println("result not found")
-	}
+	extractValue(id,"doing","is the best thing")
 
 	fmt.Println("-----------------------------------------------")
+
+	fmt.Println("manual time cancellation")
+
+	rootCtx := context.Background()
+
+	workCtx, cancel3 := context.WithCancel(rootCtx)
+
+
+	go func(){
+		time.Sleep(time.Second * 2)
+		cancel3()
+	}()
+
+	go doWord(workCtx)
+
+	time.Sleep(time.Second * 3)
+
+	fmt.Println("end of tasks")
 
 }
 
@@ -110,4 +122,9 @@ func doWord(ctx context.Context) {
 			time.Sleep(time.Second/2)
 		}
 	}
+}
+
+func extractValue(ctx context.Context, key string, message string){
+	value := ctx.Value(key)
+	log.Printf("the value we got from key is %s, %s\n", value, message)
 }
