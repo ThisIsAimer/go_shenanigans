@@ -55,6 +55,20 @@ func main() {
 
 	fmt.Println("-------------------------------------------------------")
 
+	timer1 := time.NewTimer(300 * time.Millisecond)
+	timer2 := time.NewTimer(300 * time.Millisecond)
+
+	select{
+	case <- timer1.C:
+		fmt.Println("timer 1 ended")
+	case <- timer2.C:
+		fmt.Println("timer 1 ended")
+	}
+
+	fmt.Println("end of programe")
+
+
+
 }
 
 
