@@ -21,7 +21,31 @@ func main() {
 	// only continues when wg.Add(i) i no. of go routines are executed!
 	wg.Wait()
 
-	fmt.Println("end of programme!")
+	fmt.Println("--------------------------------------------------")
+
+	var wGroup sync.WaitGroup
+	numEmp := 3
+	numTasks := 5
+
+	results := make(chan int, numTasks)
+
+	wGroup.Add(numEmp)
+
+	for i := range numEmp {
+		go working(i+1, results, &wGroup)
+	}
+
+	// closing in goroutine 
+	// results will only close when all go routines are done!
+	go func() {
+		wGroup.Wait()
+		close(results)
+	}()
+
+	for result := range results {
+		fmt.Println("Result:", result)
+	}
+
 }
 
 func worker(id int, wg *sync.WaitGroup) {
@@ -29,7 +53,17 @@ func worker(id int, wg *sync.WaitGroup) {
 
 	fmt.Printf("worker %d starting \n", id)
 
-	time.Sleep(time.Second)
+	time.Sleep(time.Second / 4)
 
 	fmt.Printf("worker %d has finished the task \n", id)
+}
+
+func working(id int, result chan<- int, wg *sync.WaitGroup) {
+	defer wg.Done()
+	fmt.Printf("worker %d is working...\n", id)
+	time.Sleep(time.Second)
+
+	fmt.Printf("worker %d is finished\n", id)
+	result <- id * 2
+	
 }
