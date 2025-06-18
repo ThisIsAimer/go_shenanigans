@@ -1,0 +1,34 @@
+    {"print to console": {
+        "prefix": "!main",
+        "body": [
+            "package main",
+            "",
+            "import \"fmt\"",
+            "",
+            "func main(){",
+            "    fmt.Println(\"hello world\")",
+            "",
+            "}"
+        ],
+        "description": "main function golang"
+    },
+    "error": {
+        "prefix": "!error",
+        "body": [
+            "if err != nil {",
+            "    fmt.Println(\"error is:\", err)",
+            "    return",
+            "}"
+        ],
+        "description": "error handeling"
+    },
+    "ok": {
+        "prefix": "!ok",
+        "body": [
+            "if !ok {",
+            "    fmt.Println(\"channel is closed\")",
+            "    ${1:break}",
+            "}"
+        ],
+        "description": "error handeling"
+    }}
