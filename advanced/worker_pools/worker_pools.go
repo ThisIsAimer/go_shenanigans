@@ -58,6 +58,7 @@ func main() {
 
 		fmt.Println("processing done for person id:", processed)
 	}
+	close(processedReq)
 
 }
 
