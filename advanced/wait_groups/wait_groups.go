@@ -6,6 +6,20 @@ import (
 	"time"
 )
 
+type majdur struct {
+	id   int
+	work string
+}
+
+func (w *majdur) doWork(wg *sync.WaitGroup) {
+	defer wg.Done()
+
+	fmt.Printf("%d id. worker is doing %s task\n", w.id, w.work)
+	time.Sleep(time.Second)
+
+	fmt.Printf("%s task done\n", w.work)
+}
+
 func main() {
 	var wg sync.WaitGroup
 
@@ -52,6 +66,23 @@ func main() {
 		fmt.Println("Result:", result)
 	}
 
+	fmt.Println("-----------------------------------------")
+
+	var constructionWait sync.WaitGroup
+
+	constructionWork := []string{"Placing bricks", "painting", "buying furniture", "building walls", "Cleaning up"}
+
+	for i, value := range constructionWork {
+		MyMajdur := majdur{id: i + 1, work: value}
+		constructionWait.Add(1)
+
+		go MyMajdur.doWork(&constructionWait)
+	}
+
+	constructionWait.Wait()
+
+	fmt.Println("all works are complete!")
+
 }
 
 func worker(id int, wg *sync.WaitGroup) {
@@ -69,7 +100,7 @@ func working(id int, tasks <-chan int, result chan<- int, wg *sync.WaitGroup) {
 
 	for task := range tasks {
 		fmt.Printf("worker %d is working on %d no. task..\n", id, task)
-		time.Sleep(time.Second)
+		time.Sleep(time.Second / 4)
 
 		result <- task * 2
 		fmt.Printf("worker %d is finished task no.%d...\n", id, task)
