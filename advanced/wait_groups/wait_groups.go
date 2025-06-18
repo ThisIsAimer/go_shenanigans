@@ -28,14 +28,20 @@ func main() {
 	numTasks := 5
 
 	results := make(chan int, numTasks)
+	tasks := make(chan int, numTasks)
 
 	wGroup.Add(numEmp)
 
 	for i := range numEmp {
-		go working(i+1, results, &wGroup)
+		go working(i+1, tasks, results, &wGroup)
 	}
 
-	// closing in goroutine 
+	for i := range numTasks {
+		tasks <- i + 1
+	}
+	close(tasks)
+
+	// closing in goroutine
 	// results will only close when all go routines are done!
 	go func() {
 		wGroup.Wait()
@@ -58,12 +64,15 @@ func worker(id int, wg *sync.WaitGroup) {
 	fmt.Printf("worker %d has finished the task \n", id)
 }
 
-func working(id int, result chan<- int, wg *sync.WaitGroup) {
+func working(id int, tasks <-chan int, result chan<- int, wg *sync.WaitGroup) {
 	defer wg.Done()
-	fmt.Printf("worker %d is working...\n", id)
-	time.Sleep(time.Second)
 
-	fmt.Printf("worker %d is finished\n", id)
-	result <- id * 2
-	
+	for task := range tasks {
+		fmt.Printf("worker %d is working on %d no. task..\n", id, task)
+		time.Sleep(time.Second)
+
+		result <- task * 2
+		fmt.Printf("worker %d is finished task no.%d...\n", id, task)
+	}
+
 }
