@@ -49,4 +49,32 @@ func main(){
 
 	fmt.Println("the final counter is", myCounter.getValue())
 
+	fmt.Println("---------------------------------------------------------------")
+	 var counter int = 0
+	 var wait sync.WaitGroup
+	 var mutex sync.Mutex
+
+	 numGoroutines = 5
+
+	 wait.Add(numGoroutines)
+
+	 incriment := func(){
+
+		defer wait.Done()
+
+		for range 1000{
+			mutex.Lock()
+			counter++
+			mutex.Unlock()
+		}
+	 }
+
+	 for range numGoroutines{
+	 	go incriment()
+	 }
+	 wait.Wait()
+
+	 fmt.Println("the counter is now:", counter)
+
+
 }
