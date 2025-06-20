@@ -14,7 +14,7 @@ type RateLimiter struct{
 func newRateLimiter(rateLimit int, refillTime time.Duration) *RateLimiter {
 	rl := &RateLimiter{ tokens: make(chan struct{}, rateLimit), refillTime: refillTime }
 
-	for range refillTime{
+	for range rateLimit{
 		// struct{}{} takes up 0 bytes of memory
 		rl.tokens <- struct{}{}
 	}
