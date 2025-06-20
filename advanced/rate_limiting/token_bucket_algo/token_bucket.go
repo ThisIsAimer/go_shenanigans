@@ -13,6 +13,7 @@ type RateLimiter struct {
 func newRateLimiter(rateLimit int, refillTime time.Duration) *RateLimiter {
 	rl := &RateLimiter{tokens: make(chan struct{}, rateLimit), refillTime: refillTime}
 
+	//this fills up tokens
 	for range rateLimit {
 		// struct{}{} takes up 0 bytes of memory
 		rl.tokens <- struct{}{}
@@ -27,6 +28,7 @@ func (rl *RateLimiter) startRefill() {
 	ticker := time.NewTicker(rl.refillTime)
 	defer ticker.Stop()
 
+	//this adds tokens every tick if token is used
 	for {
 		select {
 		case <-ticker.C:
@@ -53,7 +55,8 @@ func main() {
 
 	rateLimiter := newRateLimiter(5, time.Second)
 
-	for range 10 {
+	//this consumes tokens
+	for range 20 {
 		if rateLimiter.allow() {
 			fmt.Println("request allowed")
 
@@ -61,7 +64,7 @@ func main() {
 			fmt.Println("request denied")
 		}
 
-		time.Sleep(time.Millisecond * 400)
+		time.Sleep(time.Millisecond * 300)
 	}
 
 }
