@@ -31,7 +31,9 @@ func (lb *leakyBucket) allow() bool {
 
 	elapsedTime := now.Sub(lb.lastLeak)
 
-	tokensToAdd := int(elapsedTime/lb.leakRate)
+	//if elapse time is 0.2 and leakrate is 0.5 it will be 0
+	// is 0.5 secs pass it will be 1
+	tokensToAdd := int(elapsedTime/lb.leakRate) 
 
 	//this is intentional
 	lb.tokens += tokensToAdd
@@ -40,6 +42,7 @@ func (lb *leakyBucket) allow() bool {
 		lb.tokens--
 	}
 
+	// this is times multiplied by leak rate depending on when was last leak and it will be updated accordingly
 	lb.lastLeak = lb.lastLeak.Add(time.Duration(tokensToAdd)* lb.leakRate)
 
 	if lb.tokens > 0{
