@@ -33,8 +33,11 @@ func (lb *leakyBucket) allow() bool {
 
 	tokensToAdd := int(elapsedTime/lb.leakRate)
 
-	if lb.tokens < lb.capacity{
-		lb.tokens += tokensToAdd
+	//this is intentional
+	lb.tokens += tokensToAdd
+
+	if lb.tokens > lb.capacity{
+		lb.tokens--
 	}
 
 	lb.lastLeak = lb.lastLeak.Add(time.Duration(tokensToAdd)* lb.leakRate)
