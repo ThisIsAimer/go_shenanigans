@@ -107,4 +107,14 @@ func main() {
 	by(age).sort(people)
 	fmt.Println("people again sorted by age", people)
 
+	fmt.Println("--------------------------------------------------------")
+
+
+	stringSlice := []string{"banana", "apple", "cherry", "grapes", "guava"}
+	
+	sort.Slice(stringSlice, func(i, j int) bool {
+		return stringSlice[i][len(stringSlice[i])-1] < stringSlice[j][len(stringSlice[j])-1]
+	})
+	fmt.Println("Sorted by last character:", stringSlice)
+
 }
