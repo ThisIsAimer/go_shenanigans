@@ -37,6 +37,36 @@ func (a byName) Less(i, j int) bool {
 func (a byName) Swap(i, j int) {
 	a[i], a[j] = a[j], a[i]
 }
+//--------------------------------------------------------------------------
+
+type by func (a,b *Person) bool
+
+type PersonSorter struct{
+	People []Person
+	by func (a,b *Person) bool
+}
+
+func(a *PersonSorter) Len() int{
+	return len(a.People)
+}
+
+func (a *PersonSorter) Swap(i, j int) {
+	a.People[i], a.People[j] = a.People[j], a.People[i]
+}
+
+func (a *PersonSorter) Less(i,j int) bool{
+	return a.by(&a.People[i],&a.People[j])
+}
+
+func (by by) sort(people []Person) {
+	ps := &PersonSorter{
+		People: people,
+		by: by,
+	}
+
+	sort.Sort(ps)
+}
+
 
 func main() {
 
@@ -69,4 +99,12 @@ func main() {
 	fmt.Println("sorted people by name:\n", people)
 
 	fmt.Println("--------------------------------------------------------")
+	
+	age := func(p1,p2 *Person) bool{
+		return p1.age < p2.age
+	}
+
+	by(age).sort(people)
+	fmt.Println("people again sorted by age", people)
+
 }
