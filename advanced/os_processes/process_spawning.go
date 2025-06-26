@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os/exec"
 	"strings"
+	"time"
 )
 
 func main() {
@@ -39,13 +40,19 @@ func main() {
 
 	fmt.Println("----------------------------------------------")
 
-	cmd = exec.Command("sleep", "3")
+	cmd = exec.Command("sleep", "10")
 
 	err = cmd.Start()
 	if err != nil {
 		fmt.Println("error is:", err)
 		return
 	}
+
+	time.Sleep(time.Second * 2)
+
+	err = cmd.Process.Kill()
+
+	fmt.Println("after 2 secs")
 
 	err = cmd.Wait()
 
