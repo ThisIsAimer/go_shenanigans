@@ -23,7 +23,14 @@ func main(){
 
 	go func(){
 		sig := <- signl
-		fmt.Println("recieved signal:",sig)
+		switch sig{
+		case syscall.SIGINT:
+			fmt.Println("called signal interrupt")
+		case syscall.SIGTERM:
+			fmt.Println("called signal terminate")
+		}
+
+		fmt.Println("gracefully exiting!")
 		os.Exit(1)
 	}()
 
@@ -32,3 +39,8 @@ func main(){
 		time.Sleep(time.Second)
 	}
 }
+
+// tasklist -lists all tasks
+// taskkill /F /PID <PID> for terminating a process
+// powershell-
+// Stop-Process -Id <PID> -Force
