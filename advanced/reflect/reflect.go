@@ -5,17 +5,23 @@ import (
 	"reflect"
 )
 
-type person struct{
+type person struct {
 	Name string
-	Age int
+	Age  int
 }
 
+type greeter struct{}
 
+func (g greeter) Greet(name string) string {
+	return "Hello " + name
+}
 
-
+func (g greeter) Intro(name string, name1 string) string {
+	return "My name is " + name + "nice to meet you " + name1
+}
 
 // manupulate at runtime
-func main(){
+func main() {
 
 	x := 77
 
@@ -49,39 +55,57 @@ func main(){
 
 	fmt.Println("type of itf:", myReflect.Type())
 
-	if( myReflect.Kind() == reflect.String){
+	if myReflect.Kind() == reflect.String {
 		fmt.Println("itf is of string type")
 	}
 
 	fmt.Println("-----------------------------------------------")
 
-	p:= person{Name: "Gangotri", Age: 21}
+	p := person{Name: "Gangotri", Age: 21}
 
 	val := reflect.ValueOf(p)
 
-
-	for i := range val.NumField(){
+	for i := range val.NumField() {
 		fmt.Printf("at index %d, value %v\n", i, val.Field(i))
 	}
-
-
 
 	//manipulating the struct with reflect
 	val1 := reflect.ValueOf(&p).Elem()
 
 	nameField := val1.FieldByName("Name")
 
-	if nameField.CanSet(){
+	if nameField.CanSet() {
 		nameField.SetString("Godavari")
-	} else{
+	} else {
 		fmt.Println("cant change person")
 	}
 
+	fmt.Println("-----------------------------------------------")
 
 	fmt.Println("person is:", p)
-	
 
-	
+	g := greeter{}
 
+	greet := reflect.TypeOf(g)
+
+	greetValue := reflect.ValueOf(g)
+
+	// var meth reflect.Method
+
+	fmt.Println("type:", greet)
+
+	for i := range greet.NumMethod() {
+		method := greet.Method(i)
+
+		//method at 0 index is the greet method
+		fmt.Printf("method no. %d: %v\n", i, method.Name)
+	}
+
+	myMethod := greetValue.MethodByName("Intro")
+
+	result := myMethod.Call([]reflect.Value{reflect.ValueOf("Shia"),reflect.ValueOf("Sunni")})
+	// []string{"Friend"}
+	// []type{type("sjfaopj"), type("jkasebfj")}
+	fmt.Println("greetings results:", result[0].String())
 
 }
