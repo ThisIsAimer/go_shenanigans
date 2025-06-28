@@ -4,6 +4,16 @@ import (
 	"fmt"
 	"reflect"
 )
+
+type person struct{
+	Name string
+	Age int
+}
+
+
+
+
+
 // manupulate at runtime
 func main(){
 
@@ -42,6 +52,33 @@ func main(){
 	if( myReflect.Kind() == reflect.String){
 		fmt.Println("itf is of string type")
 	}
+
+	fmt.Println("-----------------------------------------------")
+
+	p:= person{Name: "Gangotri", Age: 21}
+
+	val := reflect.ValueOf(p)
+
+
+	for i := range val.NumField(){
+		fmt.Printf("at index %d, value %v\n", i, val.Field(i))
+	}
+
+
+
+	//manipulating the struct with reflect
+	val1 := reflect.ValueOf(&p).Elem()
+
+	nameField := val1.FieldByName("Name")
+
+	if nameField.CanSet(){
+		nameField.SetString("Godavari")
+	} else{
+		fmt.Println("cant change person")
+	}
+
+
+	fmt.Println("person is:", p)
 	
 
 	
