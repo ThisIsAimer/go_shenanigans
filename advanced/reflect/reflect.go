@@ -90,18 +90,18 @@ func main() {
 
 	greetValue := reflect.ValueOf(g)
 
-	// var meth reflect.Method
+	var method reflect.Method
 
 	fmt.Println("type:", greet)
 
 	for i := range greet.NumMethod() {
-		method := greet.Method(i)
+		method = greet.Method(i)
 
 		//method at 0 index is the greet method
 		fmt.Printf("method no. %d: %v\n", i, method.Name)
 	}
 
-	myMethod := greetValue.MethodByName("Intro")
+	myMethod := greetValue.MethodByName(method.Name)
 
 	result := myMethod.Call([]reflect.Value{reflect.ValueOf("Shia"),reflect.ValueOf("Sunni")})
 	// []string{"Friend"}
