@@ -27,7 +27,10 @@ func (b *buffer) produce(item int) {
 	b.mux.Lock()
 	defer b.mux.Unlock()
 
-	if len(b.items) == bufferSize {
+	// we use for loop cause wait can wait up due to other conditions like broadcast
+	// and we dont want it to execulte without context
+	
+	for len(b.items) >= bufferSize {
 		// what it does is it unloacks and locks the function continiously so that
 		// other go routines can access the elements and modify them
 		b.cond.Wait()
@@ -43,7 +46,7 @@ func (b *buffer) consume() int {
 	b.mux.Lock()
 	defer b.mux.Unlock()
 
-	if len(b.items) == 0 {
+	for len(b.items) == 0 {
 		// if 0 it stops and waits for other func to append to slice
 		b.cond.Wait()
 	}
