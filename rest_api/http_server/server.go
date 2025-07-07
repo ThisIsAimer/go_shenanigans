@@ -7,18 +7,21 @@ import (
 
 func main(){
 
-	http.HandleFunc("/", func(resp http.ResponseWriter, req *http.Request) {
+	// "/" is base root for http://localhost:3000/
+	// w is resp and r is req as golang conventions
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		// writes to resp
-		fmt.Fprintln(resp, "hello server!")
+		fmt.Fprintln(w, "Golang is soo much fun!")
 	})
 
 	// 127.0.0.1 is for local host and 3000 post is our gate number
-	const serverAdd string = "127.0.0.1:3000"
+	// golang assumes that its local host if we just add the port with :
+	const port string = ":3000"
 
 
-	fmt.Println("listening to port 3000")
+	fmt.Println("listening to port,", port)
 
-	err := http.ListenAndServe(serverAdd,nil)
+	err := http.ListenAndServe(port,nil)
 	if err != nil {
 		fmt.Println("error is:", err)
 		return
