@@ -8,7 +8,7 @@ import (
 
 type person struct{
 	Name string `json:"name"`
-	Age int32 `hson:"age"`
+	Age int32 `json:"age"`
 }
 
 var personData = map[string]person{
@@ -55,3 +55,6 @@ func main(){
 	}
 
 }
+
+
+// for benchmarking wrk -t8 -c400 -d30s http://localhost:3000/person?id=2
