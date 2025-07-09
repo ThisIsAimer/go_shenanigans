@@ -6,12 +6,12 @@ import (
 	"net/http"
 )
 
-type person struct{
+type Person struct{
 	Name string `json:"name"`
 	Age int32 `json:"age"`
 }
 
-var personData = map[string]person{
+var personData = map[string]Person{
 	"1" : {Name: "Sunpreet", Age: 20},
 	"2" : {Name: "Rudra", Age: 30},
 	"3" : {Name: "Shiva", Age: 40},
@@ -56,5 +56,5 @@ func main(){
 
 }
 
-
+// wsl -d ubuntu for windows
 // for benchmarking wrk -t8 -c400 -d30s http://localhost:3000/person?id=2
