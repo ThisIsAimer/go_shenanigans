@@ -59,6 +59,7 @@ func main(){
 		Addr: port,
 		Handler: nil,
 		TLSConfig: tlsConfig,
+		TLSNextProto: make(map[string]func(*http.Server, *tls.Conn, http.Handler)),
 
 	}
 
