@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"strings"
 )
 
 type User struct {
@@ -37,5 +38,19 @@ func main() {
 	}
 
 	println("our custon struct:", customUser.Name ,customUser.Email)
+
+	fmt.Println("----------------------------------------------------------------")
+
+	decodableJsonData := `{"name":"Song Jin Woo","email":"soloLeveling@example.com"}`
+
+	reader := strings.NewReader(decodableJsonData)
+	decoder := json.NewDecoder(reader)
+
+	var decodedUser User
+
+	decoder.Decode(&decodedUser)
+
+	fmt.Println("decoded User:")
+	fmt.Println(decodedUser)
 
 }
