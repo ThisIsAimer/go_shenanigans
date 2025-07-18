@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"strings"
@@ -52,5 +53,25 @@ func main() {
 
 	fmt.Println("decoded User:")
 	fmt.Println(decodedUser)
+
+
+	fmt.Println("----------------------------------------------------------------")
+
+	encodableUser := User{Name: "Wukong", Email: "backMyth@china.com"}
+
+	var buf bytes.Buffer
+
+	encoder := json.NewEncoder(&buf)
+
+	err = encoder.Encode(encodableUser)
+
+	if err != nil {
+		fmt.Println("error is:", err)
+		return
+	}
+
+
+	fmt.Println("encoded json data:")
+	fmt.Print(buf.String())
 
 }
