@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package main;
+
+// will generate in the root foler
+option go_package = "/proto/gen;mainpb";
+
+message HelloRequest{
+    string name = 1;
+    int32 age = 2;
+
+}
+
+message HelloResponse{
+    string conf_msg =1;
+
+}
+
+message UserProfile{
+    string user_name = 1;
+    string email = 2;
+}
