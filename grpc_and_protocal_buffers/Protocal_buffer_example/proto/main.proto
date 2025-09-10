@@ -2,11 +2,15 @@ syntax = "proto3";
 
 package main;
 
+import "user/user.proto";
+import "order.proto";
+
 // will generate in the foler
 option go_package = "/proto/gen;mainpb";
 
 service Greeter{
     rpc SayHello (HelloRequest) returns (HelloResponse);
+    rpc Orders (user.User) returns (Order);
 }
 
 message HelloRequest{

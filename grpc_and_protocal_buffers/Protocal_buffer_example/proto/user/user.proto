@@ -1,0 +1,8 @@
+syntax = "proto3";
+package user;
+option go_package = "/proto/gen/user;userpb";
+
+message User {
+    string id = 1;
+}
+
