@@ -26,7 +26,7 @@ type Order struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 	User          *user.User             `protobuf:"bytes,2,opt,name=user,proto3" json:"user,omitempty"`
-	Amount        string                 `protobuf:"bytes,3,opt,name=amount,proto3" json:"amount,omitempty"`
+	Address       *Address               `protobuf:"bytes,3,opt,name=address,proto3" json:"address,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -75,11 +75,11 @@ func (x *Order) GetUser() *user.User {
 	return nil
 }
 
-func (x *Order) GetAmount() string {
+func (x *Order) GetAddress() *Address {
 	if x != nil {
-		return x.Amount
+		return x.Address
 	}
-	return ""
+	return nil
 }
 
 type Address struct {
@@ -146,12 +146,12 @@ var File_order_proto protoreflect.FileDescriptor
 
 const file_order_proto_rawDesc = "" +
 	"\n" +
-	"\vorder.proto\x12\x04main\x1a\x0fuser/user.proto\"O\n" +
+	"\vorder.proto\x12\x04main\x1a\x0fuser/user.proto\"`\n" +
 	"\x05Order\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x1e\n" +
 	"\x04user\x18\x02 \x01(\v2\n" +
-	".user.UserR\x04user\x12\x16\n" +
-	"\x06amount\x18\x03 \x01(\tR\x06amount\"U\n" +
+	".user.UserR\x04user\x12'\n" +
+	"\aaddress\x18\x03 \x01(\v2\r.main.AddressR\aaddress\"U\n" +
 	"\aAddress\x12 \n" +
 	"\vaddressLine\x18\x01 \x01(\tR\vaddressLine\x12\x12\n" +
 	"\x04city\x18\x02 \x01(\tR\x04city\x12\x14\n" +
@@ -177,11 +177,12 @@ var file_order_proto_goTypes = []any{
 }
 var file_order_proto_depIdxs = []int32{
 	2, // 0: main.Order.user:type_name -> user.User
-	1, // [1:1] is the sub-list for method output_type
-	1, // [1:1] is the sub-list for method input_type
-	1, // [1:1] is the sub-list for extension type_name
-	1, // [1:1] is the sub-list for extension extendee
-	0, // [0:1] is the sub-list for field type_name
+	1, // 1: main.Order.address:type_name -> main.Address
+	2, // [2:2] is the sub-list for method output_type
+	2, // [2:2] is the sub-list for method input_type
+	2, // [2:2] is the sub-list for extension type_name
+	2, // [2:2] is the sub-list for extension extendee
+	0, // [0:2] is the sub-list for field type_name
 }
 
 func init() { file_order_proto_init() }

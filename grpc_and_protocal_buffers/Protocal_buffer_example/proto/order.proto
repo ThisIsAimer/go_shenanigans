@@ -7,7 +7,7 @@ import "user/user.proto";
 message Order {
     string id = 1;
     user.User user = 2;
-    string amount = 3;
+    Address address = 3;
 }
 
 message Address {

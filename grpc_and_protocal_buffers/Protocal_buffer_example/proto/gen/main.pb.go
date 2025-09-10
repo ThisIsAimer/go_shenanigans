@@ -25,7 +25,7 @@ const (
 type HelloRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Name          string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	Age           int32                  `protobuf:"varint,2,opt,name=age,proto3" json:"age,omitempty"`
+	Age           *int32                 `protobuf:"varint,2,opt,name=age,proto3,oneof" json:"age,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -68,8 +68,8 @@ func (x *HelloRequest) GetName() string {
 }
 
 func (x *HelloRequest) GetAge() int32 {
-	if x != nil {
-		return x.Age
+	if x != nil && x.Age != nil {
+		return *x.Age
 	}
 	return 0
 }
@@ -175,10 +175,11 @@ var File_main_proto protoreflect.FileDescriptor
 const file_main_proto_rawDesc = "" +
 	"\n" +
 	"\n" +
-	"main.proto\x12\x04main\x1a\x0fuser/user.proto\x1a\vorder.proto\"4\n" +
+	"main.proto\x12\x04main\x1a\x0fuser/user.proto\x1a\vorder.proto\"A\n" +
 	"\fHelloRequest\x12\x12\n" +
-	"\x04name\x18\x01 \x01(\tR\x04name\x12\x10\n" +
-	"\x03age\x18\x02 \x01(\x05R\x03age\"*\n" +
+	"\x04name\x18\x01 \x01(\tR\x04name\x12\x15\n" +
+	"\x03age\x18\x02 \x01(\x05H\x00R\x03age\x88\x01\x01B\x06\n" +
+	"\x04_age\"*\n" +
 	"\rHelloResponse\x12\x19\n" +
 	"\bconf_msg\x18\x01 \x01(\tR\aconfMsg\"@\n" +
 	"\vUserProfile\x12\x1b\n" +
@@ -227,6 +228,7 @@ func file_main_proto_init() {
 		return
 	}
 	file_order_proto_init()
+	file_main_proto_msgTypes[0].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
