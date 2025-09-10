@@ -2,8 +2,12 @@ syntax = "proto3";
 
 package main;
 
-// will generate in the root foler
+// will generate in the foler
 option go_package = "/proto/gen;mainpb";
+
+service Greeter{
+    rpc SayHello (HelloRequest) returns (HelloResponse);
+}
 
 message HelloRequest{
     string name = 1;

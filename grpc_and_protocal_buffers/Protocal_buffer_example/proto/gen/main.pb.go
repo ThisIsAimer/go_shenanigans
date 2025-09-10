@@ -181,7 +181,9 @@ const file_proto_main_proto_rawDesc = "" +
 	"\bconf_msg\x18\x01 \x01(\tR\aconfMsg\"@\n" +
 	"\vUserProfile\x12\x1b\n" +
 	"\tuser_name\x18\x01 \x01(\tR\buserName\x12\x14\n" +
-	"\x05email\x18\x02 \x01(\tR\x05emailB\x13Z\x11/proto/gen;mainpbb\x06proto3"
+	"\x05email\x18\x02 \x01(\tR\x05email2>\n" +
+	"\aGreeter\x123\n" +
+	"\bSayHello\x12\x12.main.HelloRequest\x1a\x13.main.HelloResponseB\x13Z\x11/proto/gen;mainpbb\x06proto3"
 
 var (
 	file_proto_main_proto_rawDescOnce sync.Once
@@ -202,8 +204,10 @@ var file_proto_main_proto_goTypes = []any{
 	(*UserProfile)(nil),   // 2: main.UserProfile
 }
 var file_proto_main_proto_depIdxs = []int32{
-	0, // [0:0] is the sub-list for method output_type
-	0, // [0:0] is the sub-list for method input_type
+	0, // 0: main.Greeter.SayHello:input_type -> main.HelloRequest
+	1, // 1: main.Greeter.SayHello:output_type -> main.HelloResponse
+	1, // [1:2] is the sub-list for method output_type
+	0, // [0:1] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
 	0, // [0:0] is the sub-list for extension extendee
 	0, // [0:0] is the sub-list for field type_name
@@ -222,7 +226,7 @@ func file_proto_main_proto_init() {
 			NumEnums:      0,
 			NumMessages:   3,
 			NumExtensions: 0,
-			NumServices:   0,
+			NumServices:   1,
 		},
 		GoTypes:           file_proto_main_proto_goTypes,
 		DependencyIndexes: file_proto_main_proto_depIdxs,
