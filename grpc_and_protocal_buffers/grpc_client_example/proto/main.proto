@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package calculater;
+
+option go_package = "/proto/gen;mainpb";
+
+service Calculate {
+    rpc Add (AddRequest) returns (AddResponse);
+}
+
+message AddRequest {
+    int32 a = 1;
+    int32 b =2;
+}
+
+message AddResponse {
+    int32 sum = 1;
+}
