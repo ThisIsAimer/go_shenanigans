@@ -3,3 +3,6 @@ protoc --go_out=. --go-grpc_out=. proto/main.proto
 protoc -I=proto  --go_out=. proto/main.proto proto/user/user.proto proto/order.proto
 
 go get google.golang.org/grpc
+
+
+openssl req -x509 -newkey rsa:2048 -nodes -keyout key.pem -out certificate.pem -days 365 -config cert.conf
