@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package calculater;
+
+option go_package = "/proto/gen;mainpb";
+
+message HelloRequest {
+    string message = 1;
+}
+message HelloResponse {
+    string message = 1;
+}

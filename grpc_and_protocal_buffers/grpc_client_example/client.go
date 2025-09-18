@@ -12,6 +12,8 @@ import (
 
 func main() {
 
+	// for add service
+
 	cert := `certificate\certificate.pem`
 
 	cred, err := credentials.NewClientTLSFromFile(cert, "")
@@ -49,7 +51,23 @@ func main() {
 	fmt.Println("sum result:", res.Sum)
 
 	state := conn.GetState().String()
-	
+
 	fmt.Println("state is:", state)
+
+	// for greet service
+
+	client2 := pb.NewGreeterClient(conn)
+
+	reqGreet := pb.HelloRequest{Message: "hello how are you!"}
+
+	ctx, cancel = context.WithTimeout(context.Background(), time.Second)
+	defer cancel()
+
+	res2, err := client2.Greet(ctx, &reqGreet)
+
+	if err != nil {
+		fmt.Println("error getting response:", err)
+	}
+	fmt.Println("greet response:", res2.Message)
 
 }

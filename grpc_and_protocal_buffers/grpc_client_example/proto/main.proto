@@ -1,11 +1,17 @@
 syntax = "proto3";
 
+import "greeter.proto";
+
 package calculater;
 
 option go_package = "/proto/gen;mainpb";
 
 service Calculate {
     rpc Add (AddRequest) returns (AddResponse);
+}
+
+service Greeter {
+    rpc Greet (HelloRequest) returns (HelloResponse);
 }
 
 message AddRequest {

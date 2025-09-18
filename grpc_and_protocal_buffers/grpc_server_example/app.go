@@ -26,6 +26,16 @@ func (s *server) Add(ctx context.Context, req *pb.AddRequest) (*pb.AddResponse, 
 
 }
 
+func (s *server) Greet(ctx context.Context, req *pb.HelloRequest) (*pb.HelloResponse, error) {
+
+	request := req.Message
+
+	return &pb.HelloResponse{
+		Message: fmt.Sprintf("Got: %s\ngreetings!", request),
+	}, nil
+
+}
+
 func main() {
 
 	cert := `certificate\certificate.pem`
@@ -49,6 +59,7 @@ func main() {
 	grpcServer := grpc.NewServer(grpc.Creds(creds))
 
 	pb.RegisterCalculateServer(grpcServer, &server{})
+	pb.RegisterGreeterServer(grpcServer, &server{})
 
 	fmt.Println("server running at port " + port)
 	err = grpcServer.Serve(lis)
