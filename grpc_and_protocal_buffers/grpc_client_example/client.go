@@ -48,4 +48,8 @@ func main() {
 
 	fmt.Println("sum result:", res.Sum)
 
+	state := conn.GetState().String()
+	
+	fmt.Println("state is:", state)
+
 }
