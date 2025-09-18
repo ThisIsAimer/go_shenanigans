@@ -69,7 +69,7 @@ func main() {
 	fmt.Println("greet response:", res2.Message)
 
 	//get hugging service
-	client3 := hugpb.NewHuggingClient(conn)
+	client3 := pb.NewHuggingClient(conn)
 
 	hugReq := hugpb.HugRequest{Name: "Andro"}
 

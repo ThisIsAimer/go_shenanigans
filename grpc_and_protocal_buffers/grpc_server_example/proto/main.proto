@@ -1,6 +1,7 @@
 syntax = "proto3";
 
 import "greeter.proto";
+import "hugs/hugs.proto";
 
 package calculater;
 
@@ -12,6 +13,10 @@ service Calculate {
 
 service Greeter {
     rpc Greet (HelloRequest) returns (HelloResponse);
+}
+
+service Hugging {
+    rpc GiveHug (hug.HugRequest) returns (hug.HugResponse);
 }
 
 message AddRequest {

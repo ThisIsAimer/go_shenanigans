@@ -15,7 +15,7 @@ import (
 type server struct {
 	pb.UnimplementedCalculateServer
 	pb.UnimplementedGreeterServer
-	hugpb.UnimplementedHuggingServer
+	pb.UnimplementedHuggingServer
 }
 
 func (s *server) Add(ctx context.Context, req *pb.AddRequest) (*pb.AddResponse, error) {
@@ -72,7 +72,7 @@ func main() {
 
 	pb.RegisterCalculateServer(grpcServer, &server{})
 	pb.RegisterGreeterServer(grpcServer, &server{})
-	hugpb.RegisterHuggingServer(grpcServer, &server{})
+	pb.RegisterHuggingServer(grpcServer, &server{})
 
 	fmt.Println("server running at port " + port)
 	err = grpcServer.Serve(lis)
