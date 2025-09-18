@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package hug;
+
+option go_package = "/proto/gen/hugs;hugpb";
+
+service Hugging {
+    rpc GiveHug (HugRequest) returns (HugResponse);
+}
+
+message HugRequest {
+    string name = 1;
+}
+
+message HugResponse {
+    string message = 1;
+}

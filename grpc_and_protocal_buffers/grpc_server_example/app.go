@@ -6,6 +6,7 @@ import (
 	"net"
 
 	pb "grpcapp/proto/gen"
+	hugpb "grpcapp/proto/gen/hugs"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
@@ -14,6 +15,7 @@ import (
 type server struct {
 	pb.UnimplementedCalculateServer
 	pb.UnimplementedGreeterServer
+	hugpb.UnimplementedHuggingServer
 }
 
 func (s *server) Add(ctx context.Context, req *pb.AddRequest) (*pb.AddResponse, error) {
@@ -32,6 +34,16 @@ func (s *server) Greet(ctx context.Context, req *pb.HelloRequest) (*pb.HelloResp
 
 	return &pb.HelloResponse{
 		Message: fmt.Sprintf("Got: %s\ngreetings!", request),
+	}, nil
+
+}
+
+func (s *server) GiveHug(ctx context.Context, req *hugpb.HugRequest) (*hugpb.HugResponse, error) {
+
+	name := req.Name
+
+	return &hugpb.HugResponse{
+		Message: fmt.Sprintf("Lot of hugs for mr.%s!", name),
 	}, nil
 
 }
@@ -60,6 +72,7 @@ func main() {
 
 	pb.RegisterCalculateServer(grpcServer, &server{})
 	pb.RegisterGreeterServer(grpcServer, &server{})
+	hugpb.RegisterHuggingServer(grpcServer, &server{})
 
 	fmt.Println("server running at port " + port)
 	err = grpcServer.Serve(lis)

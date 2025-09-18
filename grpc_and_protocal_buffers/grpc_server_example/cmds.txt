@@ -4,6 +4,8 @@ protoc -I=proto  --go_out=. proto/main.proto proto/user/user.proto proto/order.p
 
 protoc -I=proto  --go_out=. --go-grpc_out=. proto/main.proto proto/greeter.proto
 
+protoc -I=proto  --go_out=. --go-grpc_out=. proto/main.proto proto/greeter.proto proto/hugs/hugs.proto
+
 go get google.golang.org/grpc
 
 

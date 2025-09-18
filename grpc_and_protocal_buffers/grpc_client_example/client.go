@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	pb "grpcclient/proto/gen"
+	hugpb "grpcclient/proto/gen/hugs"
 	"time"
 
 	"google.golang.org/grpc"
@@ -60,14 +61,24 @@ func main() {
 
 	reqGreet := pb.HelloRequest{Message: "hello how are you!"}
 
-	ctx, cancel = context.WithTimeout(context.Background(), time.Second)
-	defer cancel()
-
 	res2, err := client2.Greet(ctx, &reqGreet)
 
 	if err != nil {
 		fmt.Println("error getting response:", err)
 	}
 	fmt.Println("greet response:", res2.Message)
+
+	//get hugging service
+	client3 := hugpb.NewHuggingClient(conn)
+
+	hugReq := hugpb.HugRequest{Name: "Andro"}
+
+	res3, err := client3.GiveHug(ctx, &hugReq)
+
+	if err != nil {
+		fmt.Println("error getting hug:", err)
+	}
+
+	fmt.Println("got hug:", res3.Message)
 
 }
