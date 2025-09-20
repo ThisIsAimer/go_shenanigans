@@ -7,6 +7,16 @@ option go_package = "/proto/gen;mainpb";
 service Calculate {
     rpc Add (AddRequest) returns (AddResponse);
     rpc GenerateFibonacchi (FibonacchiRequest) returns (stream FibonacchiResponse);
+    rpc SendNumbers (stream SendRequest) returns (SendResponse);
+}
+
+message SendRequest {
+    int32 number = 1;
+}
+
+message SendResponse {
+    int32 sum = 2;
+
 }
 
 message AddRequest {

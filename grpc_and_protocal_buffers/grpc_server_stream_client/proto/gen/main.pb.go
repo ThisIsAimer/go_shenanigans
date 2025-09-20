@@ -21,6 +21,94 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+type SendRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Number        int32                  `protobuf:"varint,1,opt,name=number,proto3" json:"number,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SendRequest) Reset() {
+	*x = SendRequest{}
+	mi := &file_proto_main_proto_msgTypes[0]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SendRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SendRequest) ProtoMessage() {}
+
+func (x *SendRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_main_proto_msgTypes[0]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SendRequest.ProtoReflect.Descriptor instead.
+func (*SendRequest) Descriptor() ([]byte, []int) {
+	return file_proto_main_proto_rawDescGZIP(), []int{0}
+}
+
+func (x *SendRequest) GetNumber() int32 {
+	if x != nil {
+		return x.Number
+	}
+	return 0
+}
+
+type SendResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Sum           int32                  `protobuf:"varint,2,opt,name=sum,proto3" json:"sum,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SendResponse) Reset() {
+	*x = SendResponse{}
+	mi := &file_proto_main_proto_msgTypes[1]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SendResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SendResponse) ProtoMessage() {}
+
+func (x *SendResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_main_proto_msgTypes[1]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SendResponse.ProtoReflect.Descriptor instead.
+func (*SendResponse) Descriptor() ([]byte, []int) {
+	return file_proto_main_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *SendResponse) GetSum() int32 {
+	if x != nil {
+		return x.Sum
+	}
+	return 0
+}
+
 type AddRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	A             int32                  `protobuf:"varint,1,opt,name=a,proto3" json:"a,omitempty"`
@@ -31,7 +119,7 @@ type AddRequest struct {
 
 func (x *AddRequest) Reset() {
 	*x = AddRequest{}
-	mi := &file_proto_main_proto_msgTypes[0]
+	mi := &file_proto_main_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -43,7 +131,7 @@ func (x *AddRequest) String() string {
 func (*AddRequest) ProtoMessage() {}
 
 func (x *AddRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_main_proto_msgTypes[0]
+	mi := &file_proto_main_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -56,7 +144,7 @@ func (x *AddRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AddRequest.ProtoReflect.Descriptor instead.
 func (*AddRequest) Descriptor() ([]byte, []int) {
-	return file_proto_main_proto_rawDescGZIP(), []int{0}
+	return file_proto_main_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *AddRequest) GetA() int32 {
@@ -82,7 +170,7 @@ type AddResponse struct {
 
 func (x *AddResponse) Reset() {
 	*x = AddResponse{}
-	mi := &file_proto_main_proto_msgTypes[1]
+	mi := &file_proto_main_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -94,7 +182,7 @@ func (x *AddResponse) String() string {
 func (*AddResponse) ProtoMessage() {}
 
 func (x *AddResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_main_proto_msgTypes[1]
+	mi := &file_proto_main_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -107,7 +195,7 @@ func (x *AddResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AddResponse.ProtoReflect.Descriptor instead.
 func (*AddResponse) Descriptor() ([]byte, []int) {
-	return file_proto_main_proto_rawDescGZIP(), []int{1}
+	return file_proto_main_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *AddResponse) GetResult() int32 {
@@ -126,7 +214,7 @@ type FibonacchiRequest struct {
 
 func (x *FibonacchiRequest) Reset() {
 	*x = FibonacchiRequest{}
-	mi := &file_proto_main_proto_msgTypes[2]
+	mi := &file_proto_main_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -138,7 +226,7 @@ func (x *FibonacchiRequest) String() string {
 func (*FibonacchiRequest) ProtoMessage() {}
 
 func (x *FibonacchiRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_main_proto_msgTypes[2]
+	mi := &file_proto_main_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -151,7 +239,7 @@ func (x *FibonacchiRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FibonacchiRequest.ProtoReflect.Descriptor instead.
 func (*FibonacchiRequest) Descriptor() ([]byte, []int) {
-	return file_proto_main_proto_rawDescGZIP(), []int{2}
+	return file_proto_main_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *FibonacchiRequest) GetN() int32 {
@@ -170,7 +258,7 @@ type FibonacchiResponse struct {
 
 func (x *FibonacchiResponse) Reset() {
 	*x = FibonacchiResponse{}
-	mi := &file_proto_main_proto_msgTypes[3]
+	mi := &file_proto_main_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -182,7 +270,7 @@ func (x *FibonacchiResponse) String() string {
 func (*FibonacchiResponse) ProtoMessage() {}
 
 func (x *FibonacchiResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_main_proto_msgTypes[3]
+	mi := &file_proto_main_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -195,7 +283,7 @@ func (x *FibonacchiResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FibonacchiResponse.ProtoReflect.Descriptor instead.
 func (*FibonacchiResponse) Descriptor() ([]byte, []int) {
-	return file_proto_main_proto_rawDescGZIP(), []int{3}
+	return file_proto_main_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *FibonacchiResponse) GetNumber() int32 {
@@ -209,7 +297,11 @@ var File_proto_main_proto protoreflect.FileDescriptor
 
 const file_proto_main_proto_rawDesc = "" +
 	"\n" +
-	"\x10proto/main.proto\x12\x04main\"(\n" +
+	"\x10proto/main.proto\x12\x04main\"%\n" +
+	"\vSendRequest\x12\x16\n" +
+	"\x06number\x18\x01 \x01(\x05R\x06number\" \n" +
+	"\fSendResponse\x12\x10\n" +
+	"\x03sum\x18\x02 \x01(\x05R\x03sum\"(\n" +
 	"\n" +
 	"AddRequest\x12\f\n" +
 	"\x01a\x18\x01 \x01(\x05R\x01a\x12\f\n" +
@@ -219,10 +311,11 @@ const file_proto_main_proto_rawDesc = "" +
 	"\x11FibonacchiRequest\x12\f\n" +
 	"\x01n\x18\x01 \x01(\x05R\x01n\",\n" +
 	"\x12FibonacchiResponse\x12\x16\n" +
-	"\x06number\x18\x01 \x01(\x05R\x06number2\x82\x01\n" +
+	"\x06number\x18\x01 \x01(\x05R\x06number2\xba\x01\n" +
 	"\tCalculate\x12*\n" +
 	"\x03Add\x12\x10.main.AddRequest\x1a\x11.main.AddResponse\x12I\n" +
-	"\x12GenerateFibonacchi\x12\x17.main.FibonacchiRequest\x1a\x18.main.FibonacchiResponse0\x01B\x13Z\x11/proto/gen;mainpbb\x06proto3"
+	"\x12GenerateFibonacchi\x12\x17.main.FibonacchiRequest\x1a\x18.main.FibonacchiResponse0\x01\x126\n" +
+	"\vSendNumbers\x12\x11.main.SendRequest\x1a\x12.main.SendResponse(\x01B\x13Z\x11/proto/gen;mainpbb\x06proto3"
 
 var (
 	file_proto_main_proto_rawDescOnce sync.Once
@@ -236,20 +329,24 @@ func file_proto_main_proto_rawDescGZIP() []byte {
 	return file_proto_main_proto_rawDescData
 }
 
-var file_proto_main_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
+var file_proto_main_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
 var file_proto_main_proto_goTypes = []any{
-	(*AddRequest)(nil),         // 0: main.AddRequest
-	(*AddResponse)(nil),        // 1: main.AddResponse
-	(*FibonacchiRequest)(nil),  // 2: main.FibonacchiRequest
-	(*FibonacchiResponse)(nil), // 3: main.FibonacchiResponse
+	(*SendRequest)(nil),        // 0: main.SendRequest
+	(*SendResponse)(nil),       // 1: main.SendResponse
+	(*AddRequest)(nil),         // 2: main.AddRequest
+	(*AddResponse)(nil),        // 3: main.AddResponse
+	(*FibonacchiRequest)(nil),  // 4: main.FibonacchiRequest
+	(*FibonacchiResponse)(nil), // 5: main.FibonacchiResponse
 }
 var file_proto_main_proto_depIdxs = []int32{
-	0, // 0: main.Calculate.Add:input_type -> main.AddRequest
-	2, // 1: main.Calculate.GenerateFibonacchi:input_type -> main.FibonacchiRequest
-	1, // 2: main.Calculate.Add:output_type -> main.AddResponse
-	3, // 3: main.Calculate.GenerateFibonacchi:output_type -> main.FibonacchiResponse
-	2, // [2:4] is the sub-list for method output_type
-	0, // [0:2] is the sub-list for method input_type
+	2, // 0: main.Calculate.Add:input_type -> main.AddRequest
+	4, // 1: main.Calculate.GenerateFibonacchi:input_type -> main.FibonacchiRequest
+	0, // 2: main.Calculate.SendNumbers:input_type -> main.SendRequest
+	3, // 3: main.Calculate.Add:output_type -> main.AddResponse
+	5, // 4: main.Calculate.GenerateFibonacchi:output_type -> main.FibonacchiResponse
+	1, // 5: main.Calculate.SendNumbers:output_type -> main.SendResponse
+	3, // [3:6] is the sub-list for method output_type
+	0, // [0:3] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
 	0, // [0:0] is the sub-list for extension extendee
 	0, // [0:0] is the sub-list for field type_name
@@ -266,7 +363,7 @@ func file_proto_main_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_proto_main_proto_rawDesc), len(file_proto_main_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   4,
+			NumMessages:   6,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 	pb "grpcstream/proto/gen"
+	"io"
 	"net"
-	"time"
 
 	"google.golang.org/grpc"
 )
@@ -24,23 +24,44 @@ func (s *server) Add(ctx context.Context, req *pb.AddRequest) (*pb.AddResponse, 
 
 }
 
-
 // new function style for streaming
 func (s *server) GenerateFibonacchi(req *pb.FibonacchiRequest, stream pb.Calculate_GenerateFibonacchiServer) error {
 	n := req.N
 
 	a, b := 0, 1
-
 	for range int(n) {
 		err := stream.Send(&pb.FibonacchiResponse{Number: int32(a)})
 		if err != nil {
 			return err
 		}
 		a, b = b, a+b
-		time.Sleep(time.Second)
 	}
 
 	return nil
+}
+
+// for client side streaming
+func (s *server) SendNumbers(stream pb.Calculate_SendNumbersServer) error {
+
+	var sum int32
+
+	for {
+
+		req, err := stream.Recv()
+
+		if err == io.EOF {
+			fmt.Println("end of stream")
+			return stream.SendAndClose(&pb.SendResponse{Sum: sum})
+		} else if err != nil {
+			fmt.Println("error getting request:", err)
+			return err
+		}
+
+		println(req.GetNumber())
+
+		sum += req.GetNumber()
+	}
+
 }
 
 func main() {

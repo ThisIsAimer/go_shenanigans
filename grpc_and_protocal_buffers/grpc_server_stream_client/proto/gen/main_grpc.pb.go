@@ -21,6 +21,7 @@ const _ = grpc.SupportPackageIsVersion9
 const (
 	Calculate_Add_FullMethodName                = "/main.Calculate/Add"
 	Calculate_GenerateFibonacchi_FullMethodName = "/main.Calculate/GenerateFibonacchi"
+	Calculate_SendNumbers_FullMethodName        = "/main.Calculate/SendNumbers"
 )
 
 // CalculateClient is the client API for Calculate service.
@@ -29,6 +30,7 @@ const (
 type CalculateClient interface {
 	Add(ctx context.Context, in *AddRequest, opts ...grpc.CallOption) (*AddResponse, error)
 	GenerateFibonacchi(ctx context.Context, in *FibonacchiRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[FibonacchiResponse], error)
+	SendNumbers(ctx context.Context, opts ...grpc.CallOption) (grpc.ClientStreamingClient[SendRequest, SendResponse], error)
 }
 
 type calculateClient struct {
@@ -68,12 +70,26 @@ func (c *calculateClient) GenerateFibonacchi(ctx context.Context, in *Fibonacchi
 // This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
 type Calculate_GenerateFibonacchiClient = grpc.ServerStreamingClient[FibonacchiResponse]
 
+func (c *calculateClient) SendNumbers(ctx context.Context, opts ...grpc.CallOption) (grpc.ClientStreamingClient[SendRequest, SendResponse], error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	stream, err := c.cc.NewStream(ctx, &Calculate_ServiceDesc.Streams[1], Calculate_SendNumbers_FullMethodName, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &grpc.GenericClientStream[SendRequest, SendResponse]{ClientStream: stream}
+	return x, nil
+}
+
+// This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
+type Calculate_SendNumbersClient = grpc.ClientStreamingClient[SendRequest, SendResponse]
+
 // CalculateServer is the server API for Calculate service.
 // All implementations must embed UnimplementedCalculateServer
 // for forward compatibility.
 type CalculateServer interface {
 	Add(context.Context, *AddRequest) (*AddResponse, error)
 	GenerateFibonacchi(*FibonacchiRequest, grpc.ServerStreamingServer[FibonacchiResponse]) error
+	SendNumbers(grpc.ClientStreamingServer[SendRequest, SendResponse]) error
 	mustEmbedUnimplementedCalculateServer()
 }
 
@@ -89,6 +105,9 @@ func (UnimplementedCalculateServer) Add(context.Context, *AddRequest) (*AddRespo
 }
 func (UnimplementedCalculateServer) GenerateFibonacchi(*FibonacchiRequest, grpc.ServerStreamingServer[FibonacchiResponse]) error {
 	return status.Errorf(codes.Unimplemented, "method GenerateFibonacchi not implemented")
+}
+func (UnimplementedCalculateServer) SendNumbers(grpc.ClientStreamingServer[SendRequest, SendResponse]) error {
+	return status.Errorf(codes.Unimplemented, "method SendNumbers not implemented")
 }
 func (UnimplementedCalculateServer) mustEmbedUnimplementedCalculateServer() {}
 func (UnimplementedCalculateServer) testEmbeddedByValue()                   {}
@@ -140,6 +159,13 @@ func _Calculate_GenerateFibonacchi_Handler(srv interface{}, stream grpc.ServerSt
 // This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
 type Calculate_GenerateFibonacchiServer = grpc.ServerStreamingServer[FibonacchiResponse]
 
+func _Calculate_SendNumbers_Handler(srv interface{}, stream grpc.ServerStream) error {
+	return srv.(CalculateServer).SendNumbers(&grpc.GenericServerStream[SendRequest, SendResponse]{ServerStream: stream})
+}
+
+// This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
+type Calculate_SendNumbersServer = grpc.ClientStreamingServer[SendRequest, SendResponse]
+
 // Calculate_ServiceDesc is the grpc.ServiceDesc for Calculate service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -157,6 +183,11 @@ var Calculate_ServiceDesc = grpc.ServiceDesc{
 			StreamName:    "GenerateFibonacchi",
 			Handler:       _Calculate_GenerateFibonacchi_Handler,
 			ServerStreams: true,
+		},
+		{
+			StreamName:    "SendNumbers",
+			Handler:       _Calculate_SendNumbers_Handler,
+			ClientStreams: true,
 		},
 	},
 	Metadata: "proto/main.proto",
