@@ -8,6 +8,11 @@ service Calculate {
     rpc Add (AddRequest) returns (AddResponse);
     rpc GenerateFibonacchi (FibonacchiRequest) returns (stream FibonacchiResponse);
     rpc SendNumbers (stream SendRequest) returns (SendResponse);
+    rpc Chat (stream ChatMessage) returns (stream ChatMessage);
+}
+
+message ChatMessage {
+    string text = 1;
 }
 
 message SendRequest {
