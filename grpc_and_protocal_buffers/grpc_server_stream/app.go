@@ -83,8 +83,12 @@ func (s *server) Chat(stream pb.Calculate_ChatServer) error {
 			return err
 		}
 
+		
+		fmt.Println("------------------------------------------------------")
 		fmt.Println("recieved Text:", req.GetText())
 		//read input from terminal
+
+		fmt.Print("please end next text with a \".\": ")
 		input, err := reader.ReadString('.')
 		if err != nil {
 			return err

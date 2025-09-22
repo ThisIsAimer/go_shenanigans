@@ -5,6 +5,7 @@ import (
 	"fmt"
 	pb "grpcstreamclient/proto/gen"
 	"io"
+	"sync"
 	"time"
 
 	"google.golang.org/grpc"
@@ -25,7 +26,6 @@ func main() {
 
 	ctx := context.Background()
 
-	
 	// server side streaming
 	febReq := &pb.FibonacchiRequest{N: 20}
 
@@ -63,7 +63,6 @@ func main() {
 			fmt.Println("error is:", err)
 			return
 		}
-		time.Sleep(time.Second)
 	}
 
 	resp1, err := stream1.CloseAndRecv()
@@ -73,5 +72,57 @@ func main() {
 	}
 
 	fmt.Println("sum is:", resp1.Sum)
+
+	// bidirectional client
+	chatStream, err := client.Chat(ctx)
+	if err != nil {
+		fmt.Println("error creating stream:", err)
+		return
+	}
+
+	var wg sync.WaitGroup
+
+	wg.Add(2)
+
+	// waitc := make(chan struct{})
+
+	// goroutine for sending messages
+	go func() {
+		messages := []string{"hello", "how are you", "goodbye"}
+		for _, message := range messages {
+			err := chatStream.Send(&pb.ChatMessage{Text: message})
+			if err != nil {
+				fmt.Println("error sending message:", err)
+				return
+			}
+			time.Sleep(time.Second)
+		}
+		chatStream.CloseSend()
+		wg.Done()
+	}()
+
+	// goroutine for sending messages
+	go func() {
+		for {
+
+			resp, err := chatStream.Recv()
+
+			if err == io.EOF {
+				fmt.Println("end of stream!")
+				break
+			} else if err != nil {
+				fmt.Println("error recieving text:", err)
+				break
+			}
+
+			fmt.Println("got response to message:", resp.GetText())
+		}
+		wg.Done()
+		// close(waitc)
+	}()
+
+	wg.Wait()
+
+	// <-waitc
 
 }
