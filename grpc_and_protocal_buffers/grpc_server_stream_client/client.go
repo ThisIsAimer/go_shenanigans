@@ -17,7 +17,7 @@ func main() {
 
 	port := ":50051"
 
-	conn, err := grpc.NewClient("localhost"+port, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithDefaultCallOptions(grpc.UseCompressor(gzip.Name)))
+	conn, err := grpc.NewClient("localhost"+port, grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
 		fmt.Println("error making client:", err)
 		return
@@ -30,7 +30,7 @@ func main() {
 	// server side streaming
 	febReq := &pb.FibonacchiRequest{N: 20}
 
-	stream, err := client.GenerateFibonacchi(ctx, febReq)
+	stream, err := client.GenerateFibonacchi(ctx, febReq, grpc.UseCompressor(gzip.Name))
 	if err != nil {
 		fmt.Println("error calling GenerateFibonacchi:", err)
 		return
