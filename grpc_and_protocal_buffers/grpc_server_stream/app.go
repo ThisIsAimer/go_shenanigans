@@ -11,6 +11,7 @@ import (
 	"strings"
 
 	"google.golang.org/grpc"
+	_ "google.golang.org/grpc/encoding/gzip"
 )
 
 type server struct {
