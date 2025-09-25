@@ -28,20 +28,22 @@ func main() {
 
 	ctx := context.Background()
 
-	//normal grpc
+	//normal add grpc
 	addReq := &pb.AddRequest{A: 30, B: 20}
 	md := metadata.Pairs("authorization", "Bearer=jkhsbdfkjbjehbgfjegfegeg", "test", "testing")
 	ctx = metadata.NewOutgoingContext(ctx, md)
 
 	var resMetaData metadata.MD
+	var TrailerMetaData metadata.MD
 
-	addRes, err := client.Add(ctx, addReq, grpc.Header(&resMetaData))
+	addRes, err := client.Add(ctx, addReq, grpc.Header(&resMetaData), grpc.Trailer(&TrailerMetaData))
 	if err != nil {
 		fmt.Println("error getting sum:", err)
 		return
 	}
 
 	fmt.Println(resMetaData)
+	fmt.Println(TrailerMetaData)
 
 	fmt.Println("sum:", addRes.GetResult())
 

@@ -44,6 +44,11 @@ func (s *server) Add(ctx context.Context, req *pb.AddRequest) (*pb.AddResponse, 
 		return nil, err
 	}
 
+
+	//trailer
+	trailer := metadata.Pairs("testTrailer","test trailer val")
+	grpc.SetTrailer(ctx,trailer)
+
 	sum := req.A + req.B
 
 	return &pb.AddResponse{
