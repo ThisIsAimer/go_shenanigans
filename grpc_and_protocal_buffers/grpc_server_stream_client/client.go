@@ -33,11 +33,15 @@ func main() {
 	md := metadata.Pairs("authorization", "Bearer=jkhsbdfkjbjehbgfjegfegeg", "test", "testing")
 	ctx = metadata.NewOutgoingContext(ctx, md)
 
-	addRes, err := client.Add(ctx, addReq)
+	var resMetaData metadata.MD
+
+	addRes, err := client.Add(ctx, addReq, grpc.Header(&resMetaData))
 	if err != nil {
 		fmt.Println("error getting sum:", err)
 		return
 	}
+
+	fmt.Println(resMetaData)
 
 	fmt.Println("sum:", addRes.GetResult())
 
