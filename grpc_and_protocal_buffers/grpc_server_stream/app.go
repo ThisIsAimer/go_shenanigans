@@ -12,6 +12,7 @@ import (
 
 	"google.golang.org/grpc"
 	_ "google.golang.org/grpc/encoding/gzip"
+	"google.golang.org/grpc/metadata"
 )
 
 type server struct {
@@ -19,6 +20,21 @@ type server struct {
 }
 
 func (s *server) Add(ctx context.Context, req *pb.AddRequest) (*pb.AddResponse, error) {
+
+	md, ok := metadata.FromIncomingContext(ctx)
+	if !ok {
+		fmt.Println("no metadata")
+	} else {
+		fmt.Println("metadata:", md)
+	}
+
+	va, ok := md["authorization"]
+
+	if !ok {
+		fmt.Println("no authorization header")
+	} else {
+		fmt.Println("authorization:", va)
+	}
 
 	sum := req.A + req.B
 
@@ -84,7 +100,6 @@ func (s *server) Chat(stream pb.Calculate_ChatServer) error {
 			return err
 		}
 
-		
 		fmt.Println("------------------------------------------------------")
 		fmt.Println("recieved Text:", req.GetText())
 		//read input from terminal

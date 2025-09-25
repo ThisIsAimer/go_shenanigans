@@ -11,13 +11,14 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 	"google.golang.org/grpc/encoding/gzip"
+	"google.golang.org/grpc/metadata"
 )
 
 func main() {
 
 	port := ":50051"
 
-	conn, err := grpc.NewClient("localhost"+port, grpc.WithTransportCredentials(insecure.NewCredentials()))// , grpc.WithDefaultCallOptions(grpc.UseCompressor(gzip.Name))
+	conn, err := grpc.NewClient("localhost"+port, grpc.WithTransportCredentials(insecure.NewCredentials())) // , grpc.WithDefaultCallOptions(grpc.UseCompressor(gzip.Name))
 	if err != nil {
 		fmt.Println("error making client:", err)
 		return
@@ -26,6 +27,19 @@ func main() {
 	client := pb.NewCalculateClient(conn)
 
 	ctx := context.Background()
+
+	//normal grpc
+	addReq := &pb.AddRequest{A: 30, B: 20}
+	md := metadata.Pairs("authorization", "Bearer=jkhsbdfkjbjehbgfjegfegeg", "test", "testing")
+	ctx = metadata.NewOutgoingContext(ctx, md)
+
+	addRes, err := client.Add(ctx, addReq)
+	if err != nil {
+		fmt.Println("error getting sum:", err)
+		return
+	}
+
+	fmt.Println("sum:", addRes.GetResult())
 
 	// server side streaming
 	febReq := &pb.FibonacchiRequest{N: 20}
